@@ -17,19 +17,39 @@ This allows designs to be written using Javascript object nomenclature.
 
 ## Table of Contents
 
+- [Installation](#installation)
 - [Usage](#usage)
 - [License](#license)
 
+## Installation
+
+For Node.js based projects, this package can be installed using NPM.
+```
+npm install jscad-object-api
+```
+
+For standalone projects, this package can be downloaded and included as a component.
+- Download the package from GitHub
+- Unzip the contents, which will produce a directory called 'jscad-object-api'
+- Copy the 'jscad-object-api' directory into the larger project
+
 ## Usage
 
-First, obtain a copy of these 'user' objects. You can download the files, or obtain through git.
+Depending on the installation above, the useage is slightly different.
 
-Second, add these objects to the contents of your JSCAD project. You can copy the files into a project.
-
-Third, use these objects as part of your JSCAD project.
-
+For Node.js based projects, just add the approprate require statement to access the API functions.
 ```
-const Geom2 = require('./Geom2')
+const {Geom2, Geom3, Path2} = require('jscad-object-api')
+```
+
+For standalone projects, the require statement must access the 'jscad-object-api' directory.
+```
+const {Geom2, Geom3, Path2} = require('./libraries/jscad-object-api')
+```
+
+Now the classes can be used within your JSCAD project.
+```
+const {Geom2} = require('./jscad-object-api')
 
 const main = (params) => {
   let obj2 = Geom2.rectangle({size: [120, 40]})
@@ -47,5 +67,5 @@ Note: JSCAD geometries must be returned from main(), so don't forget.
 
 ## License
 
-[The MIT License (MIT)](https://github.com/jscad/jscad-object-api/blob/master/LICENSE)
+[The MIT License (MIT)](./LICENSE)
 

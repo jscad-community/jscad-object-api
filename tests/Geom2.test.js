@@ -1,40 +1,40 @@
 const test = require('ava')
 
-const {geometry} = require('@jscad/modeling')
+const { geometry } = require('@jscad/modeling')
 
-const {Geom2} = require('./index')
+const { Geom2 } = require('../src/index')
 
 test('Geom2 (constructor)', t => {
   let geom = new Geom2()
 
   t.is(geom.geometry.sides.length, 0)
 
-  let newgeometry = geometry.geom2.fromPoints([[0, 0], [1, 1], [0, 1]])
+  const newgeometry = geometry.geom2.fromPoints([[0, 0], [1, 1], [0, 1]])
   geom = new Geom2(newgeometry)
 
   t.is(geom.geometry.sides.length, 3)
 })
 
 test('Geom2.fromPoints()', t => {
-  let geom = Geom2.fromPoints([[0, 0], [1, 1], [0, 1]])
+  const geom = Geom2.fromPoints([[0, 0], [1, 1], [0, 1]])
 
   t.is(geom.geometry.sides.length, 3)
 })
 
 test('Geom2 (primitives)', t => {
-  let geom = Geom2.circle({center: [5, 5], radius: 5})
+  let geom = Geom2.circle({ center: [5, 5], radius: 5 })
 
   t.is(geom.geometry.sides.length, 16)
 
-  geom = Geom2.ellipse({center: [5, 5], radius: [3, 5]})
+  geom = Geom2.ellipse({ center: [5, 5], radius: [3, 5] })
 
   t.is(geom.geometry.sides.length, 16)
 
-  geom = Geom2.rectangle({center: [5, 5], size: [5, 5]})
+  geom = Geom2.rectangle({ center: [5, 5], size: [5, 5] })
 
   t.is(geom.geometry.sides.length, 4)
 
-  geom = Geom2.roundedRectangle({center: [5, 5], size: [5, 5]})
+  geom = Geom2.roundedRectangle({ center: [5, 5], size: [5, 5] })
 
   t.is(geom.geometry.sides.length, 20)
 
@@ -48,29 +48,29 @@ test('Geom2 (primitives)', t => {
 })
 
 test('Geom2 (accessors)', t => {
-  let geom = Geom2.square()
-  let sides = geom.toSides()
+  const geom = Geom2.square()
+  const sides = geom.toSides()
 
   t.is(sides.length, 4)
 })
 
 test('Geom2 (measurements)', t => {
-  let geom = Geom2.square({size: 5})
-  let area = geom.measureArea()
+  const geom = Geom2.square({ size: 5 })
+  const area = geom.measureArea()
 
   t.is(area, 25)
 
-  let bounds = geom.measureBounds()
+  const bounds = geom.measureBounds()
 
   t.deepEqual(bounds, [[-2.5, -2.5, 0], [2.5, 2.5, 0]])
 
-  let volume = geom.measureVolume()
+  const volume = geom.measureVolume()
 
   t.is(volume, 0)
 })
 
 test('Geom2 (clone color reverse)', t => {
-  let geom1 = Geom2.fromPoints([[0, 0], [1, 1], [0, 1]])
+  const geom1 = Geom2.fromPoints([[0, 0], [1, 1], [0, 1]])
 
   t.is(geom1.geometry.sides.length, 3)
 
@@ -84,7 +84,7 @@ test('Geom2 (clone color reverse)', t => {
 
   t.not(geom1, geom2)
   t.is(geom2.geometry.sides.length, 3)
-  t.deepEqual(geom2.geometry.color, [ 1, 0, 0, 1 ])
+  t.deepEqual(geom2.geometry.color, [1, 0, 0, 1])
 
   geom2 = geom1.reverse()
 
@@ -94,9 +94,9 @@ test('Geom2 (clone color reverse)', t => {
 })
 
 test('Geom2 (boolean functions)', t => {
-  let geom1 = Geom2.rectangle({center: [0, 0], size: [5, 5]})
-  let geom2 = Geom2.rectangle({center: [2.5, 2.5], size: [5, 5]})
-  geom2 = geom2.center({center: [2.5, 2.5, 0]})
+  const geom1 = Geom2.rectangle({ center: [0, 0], size: [5, 5] })
+  let geom2 = Geom2.rectangle({ center: [2.5, 2.5], size: [5, 5] })
+  geom2 = geom2.center({ center: [2.5, 2.5, 0] })
 
   let geom3 = geom1.union(geom2)
 
@@ -124,7 +124,7 @@ test('Geom2 (boolean functions)', t => {
 })
 
 test('Geom2 (transform functions)', t => {
-  let geom1 = Geom2.fromPoints([[0, 0], [5, 0], [5, 5]])
+  const geom1 = Geom2.fromPoints([[0, 0], [5, 0], [5, 5]])
   let geom2 = geom1.center()
 
   t.not(geom1, geom2)
@@ -135,7 +135,7 @@ test('Geom2 (transform functions)', t => {
   t.deepEqual(sides[1], [[-2.5, -2.5], [2.5, -2.5]])
   t.deepEqual(sides[2], [[2.5, -2.5], [2.5, 2.5]])
 
-  geom2 = geom1.mirror({normal: [0, 1, 0]}) // mirror Y
+  geom2 = geom1.mirror({ normal: [0, 1, 0] }) // mirror Y
 
   t.not(geom1, geom2)
 
@@ -177,8 +177,8 @@ test('Geom2 (transform functions)', t => {
 })
 
 test('Geom2 (expand offset)', t => {
-  let geom1 = Geom2.square({size: 5})
-  let geom2 = geom1.offset({delta: 2})
+  const geom1 = Geom2.square({ size: 5 })
+  let geom2 = geom1.offset({ delta: 2 })
 
   t.not(geom1, geom2)
 
@@ -187,7 +187,7 @@ test('Geom2 (expand offset)', t => {
   t.deepEqual(sides[0], [[-4.5, -2.5], [-4.5, -4.5]])
   t.deepEqual(sides[4], [[4.5, -4.5], [4.5, -2.5]])
 
-  geom2 = geom1.expand({delta: -1}) // contract
+  geom2 = geom1.expand({ delta: -1 }) // contract
 
   t.not(geom1, geom2)
 
@@ -200,12 +200,12 @@ test('Geom2 (expand offset)', t => {
 })
 
 test('Geom2 (conversions)', t => {
-  let geom = Geom2.square({center: [10, 0], size: 5})
+  const geom = Geom2.square({ center: [10, 0], size: 5 })
 
-  let string = geom.toString()
+  // let string = geom.toString()
   // console.log(string)
 
-  let outlines = geom.toOutlines()
+  const outlines = geom.toOutlines()
 
   t.is(outlines.length, 1)
 

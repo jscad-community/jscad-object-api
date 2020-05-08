@@ -6,7 +6,7 @@ const jscad = require('@jscad/modeling')
  * Holds a JSCAD 3D geometry consisting of a set of polygons.
  * @constructor
  */
-let Geom3 = function (geometry) {
+const Geom3 = function (geometry) {
   if (geometry === undefined) {
     this.geometry = jscad.geometry.geom3.create()
   } else {
@@ -15,62 +15,62 @@ let Geom3 = function (geometry) {
 }
 
 Geom3.fromPoints = function (points) {
-  let newgeom = jscad.geometry.geom3.fromPoints(points)
+  const newgeom = jscad.geometry.geom3.fromPoints(points)
   return new Geom3(newgeom)
 }
 
 Geom3.cube = function (options) {
-  let newgeom = jscad.primitives.cube(options)
+  const newgeom = jscad.primitives.cube(options)
   return new Geom3(newgeom)
 }
 
 Geom3.cuboid = function (options) {
-  let newgeom = jscad.primitives.cuboid(options)
+  const newgeom = jscad.primitives.cuboid(options)
   return new Geom3(newgeom)
 }
 
 Geom3.cylinder = function (options) {
-  let newgeom = jscad.primitives.cylinder(options)
+  const newgeom = jscad.primitives.cylinder(options)
   return new Geom3(newgeom)
 }
 
 Geom3.cylinderElliptic = function (options) {
-  let newgeom = jscad.primitives.cylinderElliptic(options)
+  const newgeom = jscad.primitives.cylinderElliptic(options)
   return new Geom3(newgeom)
 }
 
 Geom3.ellipsoid = function (options) {
-  let newgeom = jscad.primitives.ellipsoid(options)
+  const newgeom = jscad.primitives.ellipsoid(options)
   return new Geom3(newgeom)
 }
 
 Geom3.geodesicSphere = function (options) {
-  let newgeom = jscad.primitives.geodesicSphere(options)
+  const newgeom = jscad.primitives.geodesicSphere(options)
   return new Geom3(newgeom)
 }
 
 Geom3.polyhedron = function (options) {
-  let newgeom = jscad.primitives.polyhedron(options)
+  const newgeom = jscad.primitives.polyhedron(options)
   return new Geom3(newgeom)
 }
 
 Geom3.roundedCuboid = function (options) {
-  let newgeom = jscad.primitives.roundedCuboid(options)
+  const newgeom = jscad.primitives.roundedCuboid(options)
   return new Geom3(newgeom)
 }
 
 Geom3.roundedCylinder = function (options) {
-  let newgeom = jscad.primitives.roundedCylinder(options)
+  const newgeom = jscad.primitives.roundedCylinder(options)
   return new Geom3(newgeom)
 }
 
 Geom3.sphere = function (options) {
-  let newgeom = jscad.primitives.sphere(options)
+  const newgeom = jscad.primitives.sphere(options)
   return new Geom3(newgeom)
 }
 
 Geom3.torus = function (options) {
-  let newgeom = jscad.primitives.torus(options)
+  const newgeom = jscad.primitives.torus(options)
   return new Geom3(newgeom)
 }
 
@@ -101,49 +101,49 @@ Geom3.prototype = {
   // producer methods, i.e. methods that produce new Geom3 instances
   //
   center: function (options) {
-    let newgeom = jscad.transforms.center(options, this.geometry)
-    return new Geom3(newgeom)
+    const newgeometry = jscad.transforms.center(options, this.geometry)
+    return new Geom3(newgeometry)
   },
 
   clone: function () {
-    let newgeom = jscad.geometry.geom3.clone(this.geometry)
-    return new Geom3(newgeom)
+    const newgeometry = jscad.geometry.geom3.clone(this.geometry)
+    return new Geom3(newgeometry)
   },
 
   color: function (colorspec) {
     if (!Array.isArray(colorspec)) colorspec = jscad.color.colorNameToRgb(colorspec)
-    let newgeom = jscad.color.color(colorspec, this.geometry)
-    return new Geom3(newgeom)
+    const newgeometry = jscad.color.color(colorspec, this.geometry)
+    return new Geom3(newgeometry)
   },
 
   expand: function (options) {
-    let newgeom = jscad.expansions.expand(options, this.geometry)
-    return new Geom3(newgeom)
+    const newgeometry = jscad.expansions.expand(options, this.geometry)
+    return new Geom3(newgeometry)
   },
 
   mirror: function (options) {
-    let newgeom = jscad.transforms.mirror(options, this.geometry)
-    return new Geom3(newgeom)
+    const newgeometry = jscad.transforms.mirror(options, this.geometry)
+    return new Geom3(newgeometry)
   },
 
   rotate: function (angles) {
-    let newgeom = jscad.transforms.rotate(angles, this.geometry)
-    return new Geom3(newgeom)
+    const newgeometry = jscad.transforms.rotate(angles, this.geometry)
+    return new Geom3(newgeometry)
   },
 
   scale: function (factors) {
-    let newgeom = jscad.transforms.scale(factors, this.geometry)
-    return new Geom3(newgeom)
+    const newgeometry = jscad.transforms.scale(factors, this.geometry)
+    return new Geom3(newgeometry)
   },
 
   transform: function (matrix) {
-    let newgeometry = jscad.geometry.geom3.transform(matrix, this.geometry)
+    const newgeometry = jscad.geometry.geom3.transform(matrix, this.geometry)
     return new Geom3(newgeometry)
   },
 
   translate: function (offsets) {
-    let newgeom = jscad.transforms.translate(offsets, this.geometry)
-    return new Geom3(newgeom)
+    const newgeometry = jscad.transforms.translate(offsets, this.geometry)
+    return new Geom3(newgeometry)
   },
 
   //
@@ -151,7 +151,7 @@ Geom3.prototype = {
   //
   intersect: function (...objects) {
     objects = jscad.utils.flatten(objects)
-    let geometries = [this.geometry]
+    const geometries = [this.geometry]
     objects.forEach((object) => {
       geometries.push(object.geometry)
     })
@@ -161,7 +161,7 @@ Geom3.prototype = {
 
   subtract: function (...objects) {
     objects = jscad.utils.flatten(objects)
-    let geometries = [this.geometry]
+    const geometries = [this.geometry]
     objects.forEach((object) => {
       geometries.push(object.geometry)
     })
@@ -171,10 +171,10 @@ Geom3.prototype = {
 
   union: function (...objects) {
     objects = jscad.utils.flatten(objects)
-    let geometries = objects.map((object) => object.geometry)
+    const geometries = objects.map((object) => object.geometry)
     geometries.push(this.geometry)
 
-    let newgeometry = jscad.booleans.union(geometries)
+    const newgeometry = jscad.booleans.union(geometries)
     return new Geom3(newgeometry)
   },
 
@@ -189,23 +189,23 @@ Geom3.prototype = {
   // helper methods
   //
   centerX: function () {
-    return this.center({axes: [true, false, false]})
+    return this.center({ axes: [true, false, false] })
   },
   centerY: function () {
-    return this.center({axes: [false, true, false]})
+    return this.center({ axes: [false, true, false] })
   },
   centerZ: function () {
-    return this.center({axes: [false, false, true]})
+    return this.center({ axes: [false, false, true] })
   },
 
   mirrorX: function () {
-    return this.mirror({normal: [1, 0, 0]})
+    return this.mirror({ normal: [1, 0, 0] })
   },
   mirrorY: function () {
-    return this.mirror({normal: [0, 1, 0]})
+    return this.mirror({ normal: [0, 1, 0] })
   },
   mirrorZ: function () {
-    return this.mirror({normal: [0, 0, 1]})
+    return this.mirror({ normal: [0, 0, 1] })
   },
 
   rotateX: function (angle) {

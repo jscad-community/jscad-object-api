@@ -1,8 +1,8 @@
 const test = require('ava')
 
-const {geometry} = require('@jscad/modeling')
+const { geometry } = require('@jscad/modeling')
 
-const {Path2} = require('./index')
+const { Path2 } = require('../src/index')
 
 test('Path2 (constructor)', t => {
   let path = new Path2()
@@ -10,7 +10,7 @@ test('Path2 (constructor)', t => {
   t.is(path.geometry.points.length, 0)
   t.is(path.geometry.isClosed, false)
 
-  let newgeometry = geometry.path2.fromPoints({closed: true}, [[0, 0], [1, 1], [0, 1]])
+  const newgeometry = geometry.path2.fromPoints({ closed: true }, [[0, 0], [1, 1], [0, 1]])
   path = new Path2(newgeometry)
 
   t.is(path.geometry.points.length, 3)
@@ -35,38 +35,38 @@ test('Path2 (primitives)', t => {
   t.is(path.geometry.points.length, 17)
   t.is(path.geometry.isClosed, true)
 
-  path = Path2.arc({endAngle: Math.PI}) // 180 degrees
+  path = Path2.arc({ endAngle: Math.PI }) // 180 degrees
 
   t.is(path.geometry.points.length, 10)
   t.is(path.geometry.isClosed, false)
 })
 
 test('Path2 (accessors)', t => {
-  let path = Path2.arc()
+  const path = Path2.arc()
 
   t.is(path.isClosed(), true)
 
-  let points = path.toPoints()
+  const points = path.toPoints()
   t.is(points.length, 17)
 })
 
 test('Path2 (measurements)', t => {
-  let path = Path2.arc({endAngle: Math.PI}) // 180 degrees
-  let area = path.measureArea()
+  const path = Path2.arc({ endAngle: Math.PI }) // 180 degrees
+  const area = path.measureArea()
 
   t.is(area, 0)
 
-  let bounds = path.measureBounds()
+  const bounds = path.measureBounds()
 
   t.deepEqual(bounds, [[-1, 0, 0], [1, 0.984807753012208, 0]])
 
-  let volume = path.measureVolume()
+  const volume = path.measureVolume()
 
   t.is(volume, 0)
 })
 
 test('Path2 (close clone color concat functions)', t => {
-  let path1 = Path2.fromPoints([[0, 0], [1, 1], [0, 1]])
+  const path1 = Path2.fromPoints([[0, 0], [1, 1], [0, 1]])
 
   t.is(path1.geometry.points.length, 3)
   t.is(path1.isClosed(), false)
@@ -82,7 +82,7 @@ test('Path2 (close clone color concat functions)', t => {
   t.not(path1, path2)
   t.is(path2.geometry.points.length, 3)
   t.is(path2.isClosed(), false)
-  t.deepEqual(path2.geometry.color, [ 1, 0, 0, 1 ])
+  t.deepEqual(path2.geometry.color, [1, 0, 0, 1])
 
   path2 = path1.clone()
 
@@ -91,7 +91,7 @@ test('Path2 (close clone color concat functions)', t => {
   t.is(path2.geometry.points.length, 3)
   t.is(path2.isClosed(), false)
 
-  let path3 = Path2.fromPoints([[-1, -1], [0, 0]])
+  const path3 = Path2.fromPoints([[-1, -1], [0, 0]])
   path2 = path1.concat(path3)
 
   t.not(path1, path2)
@@ -104,7 +104,7 @@ test('Path2 (close clone color concat functions)', t => {
 
 test('Path2 (append functions)', t => {
   let path1 = Path2.fromPoints([[27, -22], [27, -3]])
-  let path2 = path1.appendArc({endpoint: [12, -22], radius: [15, -20]})
+  let path2 = path1.appendArc({ endpoint: [12, -22], radius: [15, -20] })
 
   t.not(path1, path2)
 
@@ -112,7 +112,7 @@ test('Path2 (append functions)', t => {
   t.is(points.length, 7)
 
   path1 = Path2.fromPoints([[10, -20]])
-  path2 = path1.appendBezier({controlPoints: [[10, -10], [25, -10], [25, -20]], segments: 16})
+  path2 = path1.appendBezier({ controlPoints: [[10, -10], [25, -10], [25, -20]], segments: 16 })
 
   t.not(path1, path2)
 
@@ -129,7 +129,7 @@ test('Path2 (append functions)', t => {
 })
 
 test('Path2 (transform functions)', t => {
-  let path1 = Path2.fromPoints([[27, -22], [27, -3]])
+  const path1 = Path2.fromPoints([[27, -22], [27, -3]])
   let path2 = path1.center()
 
   t.not(path1, path2)
@@ -139,7 +139,7 @@ test('Path2 (transform functions)', t => {
   t.deepEqual(points[0], [0, -9.5])
   t.deepEqual(points[1], [0, 9.5])
 
-  path2 = path1.mirror({normal: [0, 1, 0]}) // mirror Y
+  path2 = path1.mirror({ normal: [0, 1, 0] }) // mirror Y
 
   t.not(path1, path2)
 
@@ -177,12 +177,12 @@ test('Path2 (transform functions)', t => {
 })
 
 test('Path2 (offset)', t => {
-  let path1 = Path2.fromPoints([[0, 0], [10, 10], [0, 10]])
-  let path2 = path1.offset({delta: 2})
+  const path1 = Path2.fromPoints([[0, 0], [10, 10], [0, 10]])
+  const path2 = path1.offset({ delta: 2 })
 
   t.not(path1, path2)
 
-  let points = path2.toPoints()
+  const points = path2.toPoints()
   t.is(points.length, 5)
   t.deepEqual(points[0], [1.414213562373095, -1.414213562373095])
   t.deepEqual(points[1], [11.414213562373096, 8.585786437626904])
@@ -192,18 +192,17 @@ test('Path2 (offset)', t => {
 })
 
 test('Path2 (conversions)', t => {
-  let path1 = Path2.fromPoints([[0, 0], [10, 10], [0, 10]])
+  const path1 = Path2.fromPoints([[0, 0], [10, 10], [0, 10]])
 
-  let string = path1.toString()
+  // const string = path1.toString()
   // console.log(string)
 
-  let geom = path1.expand({delta: 2})
+  let geom = path1.expand({ delta: 2 })
 
-  let sides = geom.toSides()
+  const sides = geom.toSides()
   t.is(sides.length, 8)
 
-  geom = path1.extrudeRectangular({size: 2, height: 10})
-  let polygons = geom.toPolygons()
+  geom = path1.extrudeRectangular({ size: 2, height: 10 })
+  const polygons = geom.toPolygons()
   t.is(polygons.length, 22)
 })
-
