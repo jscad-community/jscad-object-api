@@ -7,7 +7,7 @@ const jscad = require('@jscad/modeling')
  * Each side is a line segment as defined by two points.
  * @constructor
  */
-let Geom2 = function (geometry) {
+const Geom2 = function (geometry) {
   if (geometry === undefined) {
     this.geometry = jscad.geometry.geom2.create()
   } else {
@@ -16,37 +16,37 @@ let Geom2 = function (geometry) {
 }
 
 Geom2.fromPoints = function (points) {
-  let newgeom = jscad.geometry.geom2.fromPoints(points)
+  const newgeom = jscad.geometry.geom2.fromPoints(points)
   return new Geom2(newgeom)
 }
 
 Geom2.circle = function (options) {
-  let newgeom = jscad.primitives.circle(options)
+  const newgeom = jscad.primitives.circle(options)
   return new Geom2(newgeom)
 }
 
 Geom2.ellipse = function (options) {
-  let newgeom = jscad.primitives.ellipse(options)
+  const newgeom = jscad.primitives.ellipse(options)
   return new Geom2(newgeom)
 }
 
 Geom2.rectangle = function (options) {
-  let newgeom = jscad.primitives.rectangle(options)
+  const newgeom = jscad.primitives.rectangle(options)
   return new Geom2(newgeom)
 }
 
 Geom2.roundedRectangle = function (options) {
-  let newgeom = jscad.primitives.roundedRectangle(options)
+  const newgeom = jscad.primitives.roundedRectangle(options)
   return new Geom2(newgeom)
 }
 
 Geom2.square = function (options) {
-  let newgeom = jscad.primitives.square(options)
+  const newgeom = jscad.primitives.square(options)
   return new Geom2(newgeom)
 }
 
 Geom2.star = function (options) {
-  let newgeom = jscad.primitives.star(options)
+  const newgeom = jscad.primitives.star(options)
   return new Geom2(newgeom)
 }
 
@@ -77,58 +77,58 @@ Geom2.prototype = {
   // producer methods, i.e. methods that produce new Geom2 instances
   //
   center: function (options) {
-    let newgeom = jscad.transforms.center(options, this.geometry)
+    const newgeom = jscad.transforms.center(options, this.geometry)
     return new Geom2(newgeom)
   },
 
   clone: function () {
-    let newgeom = jscad.geometry.geom2.clone(this.geometry)
+    const newgeom = jscad.geometry.geom2.clone(this.geometry)
     return new Geom2(newgeom)
   },
 
   color: function (colorspec) {
     if (!Array.isArray(colorspec)) colorspec = jscad.color.colorNameToRgb(colorspec)
-    let newgeom = jscad.color.color(colorspec, this.geometry)
+    const newgeom = jscad.color.color(colorspec, this.geometry)
     return new Geom2(newgeom)
   },
 
   expand: function (options) {
-    let newgeom = jscad.expansions.expand(options, this.geometry)
+    const newgeom = jscad.expansions.expand(options, this.geometry)
     return new Geom2(newgeom)
   },
 
   mirror: function (options) {
-    let newgeom = jscad.transforms.mirror(options, this.geometry)
+    const newgeom = jscad.transforms.mirror(options, this.geometry)
     return new Geom2(newgeom)
   },
 
   offset: function (options) {
-    let newgeom = jscad.expansions.offset(options, this.geometry)
+    const newgeom = jscad.expansions.offset(options, this.geometry)
     return new Geom2(newgeom)
   },
 
   rotate: function (angles) {
-    let newgeom = jscad.transforms.rotate(angles, this.geometry)
+    const newgeom = jscad.transforms.rotate(angles, this.geometry)
     return new Geom2(newgeom)
   },
 
   scale: function (factors) {
-    let newgeom = jscad.transforms.scale(factors, this.geometry)
+    const newgeom = jscad.transforms.scale(factors, this.geometry)
     return new Geom2(newgeom)
   },
 
   reverse: function () {
-    let newgeometry = jscad.geometry.geom2.reverse(this.geometry)
+    const newgeometry = jscad.geometry.geom2.reverse(this.geometry)
     return new Geom2(newgeometry)
   },
 
   transform: function (matrix) {
-    let newgeometry = jscad.geometry.geom2.transform(matrix, this.geometry)
+    const newgeometry = jscad.geometry.geom2.transform(matrix, this.geometry)
     return new Geom2(newgeometry)
   },
 
   translate: function (offsets) {
-    let newgeom = jscad.transforms.translate(offsets, this.geometry)
+    const newgeom = jscad.transforms.translate(offsets, this.geometry)
     return new Geom2(newgeom)
   },
 
@@ -137,7 +137,7 @@ Geom2.prototype = {
   //
   union: function (...objects) {
     objects = jscad.utils.flatten(objects)
-    let geometries = [this.geometry]
+    const geometries = [this.geometry]
     objects.forEach((object) => {
       geometries.push(object.geometry)
     })
@@ -147,7 +147,7 @@ Geom2.prototype = {
 
   intersect: function (...objects) {
     objects = jscad.utils.flatten(objects)
-    let geometries = [this.geometry]
+    const geometries = [this.geometry]
     objects.forEach((object) => {
       geometries.push(object.geometry)
     })
@@ -157,7 +157,7 @@ Geom2.prototype = {
 
   subtract: function (...objects) {
     objects = jscad.utils.flatten(objects)
-    let geometries = [this.geometry]
+    const geometries = [this.geometry]
     objects.forEach((object) => {
       geometries.push(object.geometry)
     })
@@ -177,13 +177,13 @@ Geom2.prototype = {
   },
 
   extrudeLinear: function (options) {
-    let newgeometry = jscad.extrusions.extrudeLinear(options, this.geometry)
+    const newgeometry = jscad.extrusions.extrudeLinear(options, this.geometry)
     const Geom3 = require('./Geom3')
     return new Geom3(newgeometry)
   },
 
   extrudeRotate: function (options) {
-    let newgeometry = jscad.extrusions.extrudeRotate(options, this.geometry)
+    const newgeometry = jscad.extrusions.extrudeRotate(options, this.geometry)
     const Geom3 = require('./Geom3')
     return new Geom3(newgeometry)
   },
@@ -192,23 +192,23 @@ Geom2.prototype = {
   // helper methods
   //
   centerX: function () {
-    return this.center({axes: [true, false, false]})
+    return this.center({ axes: [true, false, false] })
   },
   centerY: function () {
-    return this.center({axes: [false, true, false]})
+    return this.center({ axes: [false, true, false] })
   },
   centerZ: function () {
-    return this.center({axes: [false, false, true]})
+    return this.center({ axes: [false, false, true] })
   },
 
   mirrorX: function () {
-    return this.mirror({normal: [1, 0, 0]})
+    return this.mirror({ normal: [1, 0, 0] })
   },
   mirrorY: function () {
-    return this.mirror({normal: [0, 1, 0]})
+    return this.mirror({ normal: [0, 1, 0] })
   },
   mirrorZ: function () {
-    return this.mirror({normal: [0, 0, 1]})
+    return this.mirror({ normal: [0, 0, 1] })
   },
 
   rotateX: function (angle) {

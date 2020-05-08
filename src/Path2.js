@@ -28,12 +28,12 @@ const Path2 = function (geometry) {
 }
 
 Path2.fromPoints = function (points, closed) {
-  let newpath = jscad.geometry.path2.fromPoints({closed: closed}, points)
+  const newpath = jscad.geometry.path2.fromPoints({ closed: closed }, points)
   return new Path2(newpath)
 }
 
 Path2.arc = function (options) {
-  var newpath = jscad.primitives.arc(options)
+  const newpath = jscad.primitives.arc(options)
   return new Path2(newpath)
 }
 
@@ -69,12 +69,12 @@ Path2.prototype = {
   // producer methods, i.e. methods that produce new Path2 instances
   //
   appendArc: function (options) {
-    let newpath = jscad.geometry.path2.appendArc(options, this.geometry)
+    const newpath = jscad.geometry.path2.appendArc(options, this.geometry)
     return new Path2(newpath)
   },
 
   appendBezier: function (options) {
-    let newpath = jscad.geometry.path2.appendBezier(options, this.geometry)
+    const newpath = jscad.geometry.path2.appendBezier(options, this.geometry)
     return new Path2(newpath)
   },
 
@@ -83,63 +83,63 @@ Path2.prototype = {
   },
 
   appendPoints: function (points) {
-    let newpath = jscad.geometry.path2.appendPoints(points, this.geometry)
+    const newpath = jscad.geometry.path2.appendPoints(points, this.geometry)
     return new Path2(newpath)
   },
 
   center: function (options) {
-    let newgeom = jscad.transforms.center(options, this.geometry)
+    const newgeom = jscad.transforms.center(options, this.geometry)
     return new Path2(newgeom)
   },
 
   clone: function () {
-    let newpath = jscad.geometry.path2.clone(this.geometry)
+    const newpath = jscad.geometry.path2.clone(this.geometry)
     return new Path2(newpath)
   },
 
   close: function () {
-    let newpath = jscad.geometry.path2.close(this.geometry)
+    const newpath = jscad.geometry.path2.close(this.geometry)
     return new Path2(newpath)
   },
 
   color: function (colorspec) {
     if (!Array.isArray(colorspec)) colorspec = jscad.color.colorNameToRgb(colorspec)
-    let newpath = jscad.color.color(colorspec, this.geometry)
+    const newpath = jscad.color.color(colorspec, this.geometry)
     return new Path2(newpath)
   },
 
   concat: function (otherpath) {
-    let newpath = jscad.geometry.path2.concat(this.geometry, otherpath.geometry)
+    const newpath = jscad.geometry.path2.concat(this.geometry, otherpath.geometry)
     return new Path2(newpath)
   },
 
   mirror: function (options) {
-    let newgeom = jscad.transforms.mirror(options, this.geometry)
+    const newgeom = jscad.transforms.mirror(options, this.geometry)
     return new Path2(newgeom)
   },
 
   offset: function (options) {
-    let newgeom = jscad.expansions.offset(options, this.geometry)
+    const newgeom = jscad.expansions.offset(options, this.geometry)
     return new Path2(newgeom)
   },
 
   rotate: function (angles) {
-    let newgeom = jscad.transforms.rotate(angles, this.geometry)
+    const newgeom = jscad.transforms.rotate(angles, this.geometry)
     return new Path2(newgeom)
   },
 
   scale: function (factors) {
-    let newgeom = jscad.transforms.scale(factors, this.geometry)
+    const newgeom = jscad.transforms.scale(factors, this.geometry)
     return new Path2(newgeom)
   },
 
   transform: function (matrix) {
-    let newpath = jscad.transforms.transform(matrix, this.geometry)
+    const newpath = jscad.transforms.transform(matrix, this.geometry)
     return new Path2(newpath)
   },
 
   translate: function (offsets) {
-    let newgeom = jscad.transforms.translate(offsets, this.geometry)
+    const newgeom = jscad.transforms.translate(offsets, this.geometry)
     return new Path2(newgeom)
   },
 
@@ -151,13 +151,13 @@ Path2.prototype = {
   },
 
   extrudeRectangular: function (options) {
-    let newgeom3 = jscad.extrusions.extrudeRectangular(options, this.geometry)
+    const newgeom3 = jscad.extrusions.extrudeRectangular(options, this.geometry)
     const Geom3 = require('./Geom3')
     return new Geom3(newgeom3)
   },
 
   expand: function (options) {
-    let newgeom2 = jscad.expansions.expand(options, this.geometry)
+    const newgeom2 = jscad.expansions.expand(options, this.geometry)
     const Geom2 = require('./Geom2')
     return new Geom2(newgeom2)
   },
@@ -166,23 +166,23 @@ Path2.prototype = {
   // helper methods
   //
   centerX: function () {
-    return this.center({axes: [true, false, false]})
+    return this.center({ axes: [true, false, false] })
   },
   centerY: function () {
-    return this.center({axes: [false, true, false]})
+    return this.center({ axes: [false, true, false] })
   },
   centerZ: function () {
-    return this.center({axes: [false, false, true]})
+    return this.center({ axes: [false, false, true] })
   },
 
   mirrorX: function () {
-    return this.mirror({normal: [1, 0, 0]})
+    return this.mirror({ normal: [1, 0, 0] })
   },
   mirrorY: function () {
-    return this.mirror({normal: [0, 1, 0]})
+    return this.mirror({ normal: [0, 1, 0] })
   },
   mirrorZ: function () {
-    return this.mirror({normal: [0, 0, 1]})
+    return this.mirror({ normal: [0, 0, 1] })
   },
 
   rotateX: function (angle) {
