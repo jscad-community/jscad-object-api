@@ -32,12 +32,12 @@ test('Path2.fromPoints()', t => {
 test('Path2 (primitives)', t => {
   let path = Path2.arc()
 
-  t.is(path.geometry.points.length, 17)
+  t.is(path.geometry.points.length, 33)
   t.is(path.geometry.isClosed, true)
 
   path = Path2.arc({ endAngle: Math.PI }) // 180 degrees
 
-  t.is(path.geometry.points.length, 10)
+  t.is(path.geometry.points.length, 18)
   t.is(path.geometry.isClosed, false)
 })
 
@@ -47,7 +47,7 @@ test('Path2 (accessors)', t => {
   t.is(path.isClosed(), true)
 
   const points = path.toPoints()
-  t.is(points.length, 17)
+  t.is(points.length, 33)
 })
 
 test('Path2 (measurements)', t => {
@@ -58,7 +58,7 @@ test('Path2 (measurements)', t => {
 
   const bounds = path.measureBounds()
 
-  t.deepEqual(bounds, [[-1, 0, 0], [1, 0.984807753012208, 0]])
+  t.deepEqual(bounds, [[-1, 0, 0], [1, 0.9957341762950346, 0]])
 
   const volume = path.measureVolume()
 
@@ -77,7 +77,7 @@ test('Path2 (close clone color concat functions)', t => {
 
   t.is(path2.isClosed(), true)
 
-  path2 = path1.color('red')
+  path2 = path1.colorize('red')
 
   t.not(path1, path2)
   t.is(path2.geometry.points.length, 3)

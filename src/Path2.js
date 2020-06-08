@@ -102,9 +102,9 @@ Path2.prototype = {
     return new Path2(newpath)
   },
 
-  color: function (colorspec) {
-    if (!Array.isArray(colorspec)) colorspec = jscad.color.colorNameToRgb(colorspec)
-    const newpath = jscad.color.color(colorspec, this.geometry)
+  colorize: function (colorspec) {
+    if (!Array.isArray(colorspec)) colorspec = jscad.colors.colorNameToRgb(colorspec)
+    const newpath = jscad.colors.colorize(colorspec, this.geometry)
     return new Path2(newpath)
   },
 
