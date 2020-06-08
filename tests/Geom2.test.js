@@ -24,11 +24,11 @@ test('Geom2.fromPoints()', t => {
 test('Geom2 (primitives)', t => {
   let geom = Geom2.circle({ center: [5, 5], radius: 5 })
 
-  t.is(geom.geometry.sides.length, 16)
+  t.is(geom.geometry.sides.length, 32)
 
   geom = Geom2.ellipse({ center: [5, 5], radius: [3, 5] })
 
-  t.is(geom.geometry.sides.length, 16)
+  t.is(geom.geometry.sides.length, 32)
 
   geom = Geom2.rectangle({ center: [5, 5], size: [5, 5] })
 
@@ -36,7 +36,7 @@ test('Geom2 (primitives)', t => {
 
   geom = Geom2.roundedRectangle({ center: [5, 5], size: [5, 5] })
 
-  t.is(geom.geometry.sides.length, 20)
+  t.is(geom.geometry.sides.length, 36)
 
   geom = Geom2.square()
 
@@ -80,7 +80,7 @@ test('Geom2 (clone color reverse)', t => {
 
   t.is(geom2.geometry.sides.length, 3)
 
-  geom2 = geom1.color('red')
+  geom2 = geom1.colorize('red')
 
   t.not(geom1, geom2)
   t.is(geom2.geometry.sides.length, 3)

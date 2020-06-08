@@ -63,7 +63,7 @@ test('Geom3 (clone color)', t => {
   t.not(geom1, geom2)
   t.is(geom2.geometry.polygons.length, 6)
 
-  geom2 = geom1.color('red')
+  geom2 = geom1.colorize('red')
 
   t.not(geom1, geom2)
   t.is(geom2.geometry.polygons.length, 6)
