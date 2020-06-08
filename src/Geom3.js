@@ -110,9 +110,9 @@ Geom3.prototype = {
     return new Geom3(newgeometry)
   },
 
-  color: function (colorspec) {
-    if (!Array.isArray(colorspec)) colorspec = jscad.color.colorNameToRgb(colorspec)
-    const newgeometry = jscad.color.color(colorspec, this.geometry)
+  colorize: function (colorspec) {
+    if (!Array.isArray(colorspec)) colorspec = jscad.colors.colorNameToRgb(colorspec)
+    const newgeometry = jscad.colors.colorize(colorspec, this.geometry)
     return new Geom3(newgeometry)
   },
 

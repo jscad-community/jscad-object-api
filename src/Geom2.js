@@ -86,9 +86,9 @@ Geom2.prototype = {
     return new Geom2(newgeom)
   },
 
-  color: function (colorspec) {
-    if (!Array.isArray(colorspec)) colorspec = jscad.color.colorNameToRgb(colorspec)
-    const newgeom = jscad.color.color(colorspec, this.geometry)
+  colorize: function (colorspec) {
+    if (!Array.isArray(colorspec)) colorspec = jscad.colors.colorNameToRgb(colorspec)
+    const newgeom = jscad.colors.colorize(colorspec, this.geometry)
     return new Geom2(newgeom)
   },
 
