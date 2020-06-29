@@ -30,6 +30,11 @@ Geom2.ellipse = function (options) {
   return new Geom2(newgeom)
 }
 
+Geom2.polygon = function (options) {
+  const newgeom = jscad.primitives.polygon(options)
+  return new Geom2(newgeom)
+}
+
 Geom2.rectangle = function (options) {
   const newgeom = jscad.primitives.rectangle(options)
   return new Geom2(newgeom)

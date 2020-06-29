@@ -121,6 +121,11 @@ Geom3.prototype = {
     return new Geom3(newgeometry)
   },
 
+  invert: function () {
+    const newgeometry = jscad.geometry.geom3.invert(this.geometry)
+    return new Geom3(newgeometry)
+  },
+
   mirror: function (options) {
     const newgeometry = jscad.transforms.mirror(options, this.geometry)
     return new Geom3(newgeometry)
