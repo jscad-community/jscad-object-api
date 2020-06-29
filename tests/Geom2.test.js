@@ -30,6 +30,10 @@ test('Geom2 (primitives)', t => {
 
   t.is(geom.geometry.sides.length, 32)
 
+  geom = Geom2.polygon({ points: [[0, 0], [100, 0], [130, 50], [30, 50]] })
+
+  t.is(geom.geometry.sides.length, 4)
+
   geom = Geom2.rectangle({ center: [5, 5], size: [5, 5] })
 
   t.is(geom.geometry.sides.length, 4)

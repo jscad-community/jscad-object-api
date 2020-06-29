@@ -37,6 +37,11 @@ Path2.arc = function (options) {
   return new Path2(newpath)
 }
 
+Path2.line = function (options) {
+  const newpath = jscad.primitives.line(options)
+  return new Path2(newpath)
+}
+
 Path2.prototype = {
   //
   // accessor methods
@@ -123,6 +128,11 @@ Path2.prototype = {
     return new Path2(newgeom)
   },
 
+  reverse: function () {
+    const newgeom = jscad.geometry.path2.reverse(this.geometry)
+    return new Path2(newgeom)
+  },
+
   rotate: function (angles) {
     const newgeom = jscad.transforms.rotate(angles, this.geometry)
     return new Path2(newgeom)
@@ -134,7 +144,7 @@ Path2.prototype = {
   },
 
   transform: function (matrix) {
-    const newpath = jscad.transforms.transform(matrix, this.geometry)
+    const newpath = jscad.geometry.path2.transform(matrix, this.geometry)
     return new Path2(newpath)
   },
 

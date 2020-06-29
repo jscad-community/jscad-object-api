@@ -39,6 +39,11 @@ test('Path2 (primitives)', t => {
 
   t.is(path.geometry.points.length, 18)
   t.is(path.geometry.isClosed, false)
+
+  path = Path2.line([[0, 0], [1, 1], [0, 1]])
+
+  t.is(path.geometry.points.length, 3)
+  t.is(path.geometry.isClosed, false)
 })
 
 test('Path2 (accessors)', t => {
@@ -147,6 +152,15 @@ test('Path2 (transform functions)', t => {
   t.is(points.length, 2)
   t.deepEqual(points[0], [27, 22])
   t.deepEqual(points[1], [27, 3])
+
+  path2 = path1.reverse()
+
+  t.not(path1, path2)
+
+  points = path2.toPoints()
+  t.is(points.length, 2)
+  t.deepEqual(points[0], [27, -3])
+  t.deepEqual(points[1], [27, -22])
 
   path2 = path1.rotate([0, 0, Math.PI / 2])
 
