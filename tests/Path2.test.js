@@ -1,6 +1,6 @@
 const test = require('ava')
 
-const { geometry } = require('@jscad/modeling')
+const { geometries } = require('@jscad/modeling')
 
 const { Path2 } = require('../src/index')
 
@@ -10,7 +10,7 @@ test('Path2 (constructor)', t => {
   t.is(path.geometry.points.length, 0)
   t.is(path.geometry.isClosed, false)
 
-  const newgeometry = geometry.path2.fromPoints({ closed: true }, [[0, 0], [1, 1], [0, 1]])
+  const newgeometry = geometries.path2.fromPoints({ closed: true }, [[0, 0], [1, 1], [0, 1]])
   path = new Path2(newgeometry)
 
   t.is(path.geometry.points.length, 3)

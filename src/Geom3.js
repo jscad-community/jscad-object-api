@@ -8,14 +8,14 @@ const jscad = require('@jscad/modeling')
  */
 const Geom3 = function (geometry) {
   if (geometry === undefined) {
-    this.geometry = jscad.geometry.geom3.create()
+    this.geometry = jscad.geometries.geom3.create()
   } else {
     this.geometry = geometry
   }
 }
 
 Geom3.fromPoints = function (points) {
-  const newgeom = jscad.geometry.geom3.fromPoints(points)
+  const newgeom = jscad.geometries.geom3.fromPoints(points)
   return new Geom3(newgeom)
 }
 
@@ -79,7 +79,7 @@ Geom3.prototype = {
   // accessors
   //
   toPolygons: function () {
-    return jscad.geometry.geom3.toPolygons(this.geometry)
+    return jscad.geometries.geom3.toPolygons(this.geometry)
   },
 
   //
@@ -106,7 +106,7 @@ Geom3.prototype = {
   },
 
   clone: function () {
-    const newgeometry = jscad.geometry.geom3.clone(this.geometry)
+    const newgeometry = jscad.geometries.geom3.clone(this.geometry)
     return new Geom3(newgeometry)
   },
 
@@ -122,7 +122,7 @@ Geom3.prototype = {
   },
 
   invert: function () {
-    const newgeometry = jscad.geometry.geom3.invert(this.geometry)
+    const newgeometry = jscad.geometries.geom3.invert(this.geometry)
     return new Geom3(newgeometry)
   },
 
@@ -142,7 +142,7 @@ Geom3.prototype = {
   },
 
   transform: function (matrix) {
-    const newgeometry = jscad.geometry.geom3.transform(matrix, this.geometry)
+    const newgeometry = jscad.geometries.geom3.transform(matrix, this.geometry)
     return new Geom3(newgeometry)
   },
 
@@ -187,7 +187,7 @@ Geom3.prototype = {
   // conversion methods
   //
   toString: function () {
-    return `Geom3: ${jscad.geometry.geom3.toString(this.geometry)}`
+    return `Geom3: ${jscad.geometries.geom3.toString(this.geometry)}`
   },
 
   //

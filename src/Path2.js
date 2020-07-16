@@ -6,7 +6,7 @@ const jscad = require('@jscad/modeling')
  * Holds a JSCAD path geometry consisting of a set of points.
  * A path can be open or closed, i.e. the start and end are the same.
  * @constructor
- * @param {jscad.geometry.path2} [geometry] a provided geometry
+ * @param {jscad.geometries.path2} [geometry] a provided geometry
  *
  * @example
  * let path1 = Path2.fromPoints([[10,10], [-10,10], [-10,-10], [10,-10]], true) // closed
@@ -21,14 +21,14 @@ const jscad = require('@jscad/modeling')
  */
 const Path2 = function (geometry) {
   if (geometry === undefined) {
-    this.geometry = jscad.geometry.path2.create()
+    this.geometry = jscad.geometries.path2.create()
   } else {
     this.geometry = geometry
   }
 }
 
 Path2.fromPoints = function (points, closed) {
-  const newpath = jscad.geometry.path2.fromPoints({ closed: closed }, points)
+  const newpath = jscad.geometries.path2.fromPoints({ closed: closed }, points)
   return new Path2(newpath)
 }
 
@@ -52,7 +52,7 @@ Path2.prototype = {
 
   // DO NOT MODIFY THE POINTS!
   toPoints: function () {
-    return jscad.geometry.path2.toPoints(this.geometry)
+    return jscad.geometries.path2.toPoints(this.geometry)
   },
 
   //
@@ -74,12 +74,12 @@ Path2.prototype = {
   // producer methods, i.e. methods that produce new Path2 instances
   //
   appendArc: function (options) {
-    const newpath = jscad.geometry.path2.appendArc(options, this.geometry)
+    const newpath = jscad.geometries.path2.appendArc(options, this.geometry)
     return new Path2(newpath)
   },
 
   appendBezier: function (options) {
-    const newpath = jscad.geometry.path2.appendBezier(options, this.geometry)
+    const newpath = jscad.geometries.path2.appendBezier(options, this.geometry)
     return new Path2(newpath)
   },
 
@@ -88,7 +88,7 @@ Path2.prototype = {
   },
 
   appendPoints: function (points) {
-    const newpath = jscad.geometry.path2.appendPoints(points, this.geometry)
+    const newpath = jscad.geometries.path2.appendPoints(points, this.geometry)
     return new Path2(newpath)
   },
 
@@ -98,12 +98,12 @@ Path2.prototype = {
   },
 
   clone: function () {
-    const newpath = jscad.geometry.path2.clone(this.geometry)
+    const newpath = jscad.geometries.path2.clone(this.geometry)
     return new Path2(newpath)
   },
 
   close: function () {
-    const newpath = jscad.geometry.path2.close(this.geometry)
+    const newpath = jscad.geometries.path2.close(this.geometry)
     return new Path2(newpath)
   },
 
@@ -114,7 +114,7 @@ Path2.prototype = {
   },
 
   concat: function (otherpath) {
-    const newpath = jscad.geometry.path2.concat(this.geometry, otherpath.geometry)
+    const newpath = jscad.geometries.path2.concat(this.geometry, otherpath.geometry)
     return new Path2(newpath)
   },
 
@@ -129,7 +129,7 @@ Path2.prototype = {
   },
 
   reverse: function () {
-    const newgeom = jscad.geometry.path2.reverse(this.geometry)
+    const newgeom = jscad.geometries.path2.reverse(this.geometry)
     return new Path2(newgeom)
   },
 
@@ -144,7 +144,7 @@ Path2.prototype = {
   },
 
   transform: function (matrix) {
-    const newpath = jscad.geometry.path2.transform(matrix, this.geometry)
+    const newpath = jscad.geometries.path2.transform(matrix, this.geometry)
     return new Path2(newpath)
   },
 
@@ -157,7 +157,7 @@ Path2.prototype = {
   // conversion methods
   //
   toString: function () {
-    return `Path2: ${jscad.geometry.path2.toString(this.geometry)}`
+    return `Path2: ${jscad.geometries.path2.toString(this.geometry)}`
   },
 
   extrudeRectangular: function (options) {
