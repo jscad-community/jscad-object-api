@@ -9,14 +9,14 @@ const jscad = require('@jscad/modeling')
  */
 const Geom2 = function (geometry) {
   if (geometry === undefined) {
-    this.geometry = jscad.geometry.geom2.create()
+    this.geometry = jscad.geometries.geom2.create()
   } else {
     this.geometry = geometry
   }
 }
 
 Geom2.fromPoints = function (points) {
-  const newgeom = jscad.geometry.geom2.fromPoints(points)
+  const newgeom = jscad.geometries.geom2.fromPoints(points)
   return new Geom2(newgeom)
 }
 
@@ -60,7 +60,7 @@ Geom2.prototype = {
   // accessors
   //
   toSides: function () {
-    return jscad.geometry.geom2.toSides(this.geometry)
+    return jscad.geometries.geom2.toSides(this.geometry)
   },
 
   //
@@ -87,7 +87,7 @@ Geom2.prototype = {
   },
 
   clone: function () {
-    const newgeom = jscad.geometry.geom2.clone(this.geometry)
+    const newgeom = jscad.geometries.geom2.clone(this.geometry)
     return new Geom2(newgeom)
   },
 
@@ -123,12 +123,12 @@ Geom2.prototype = {
   },
 
   reverse: function () {
-    const newgeometry = jscad.geometry.geom2.reverse(this.geometry)
+    const newgeometry = jscad.geometries.geom2.reverse(this.geometry)
     return new Geom2(newgeometry)
   },
 
   transform: function (matrix) {
-    const newgeometry = jscad.geometry.geom2.transform(matrix, this.geometry)
+    const newgeometry = jscad.geometries.geom2.transform(matrix, this.geometry)
     return new Geom2(newgeometry)
   },
 
@@ -174,11 +174,11 @@ Geom2.prototype = {
   // conversion methods
   //
   toString: function () {
-    return `Geom2: ${jscad.geometry.geom2.toString(this.geometry)}`
+    return `Geom2: ${jscad.geometries.geom2.toString(this.geometry)}`
   },
 
   toOutlines: function () {
-    return jscad.geometry.geom2.toOutlines(this.geometry)
+    return jscad.geometries.geom2.toOutlines(this.geometry)
   },
 
   extrudeLinear: function (options) {

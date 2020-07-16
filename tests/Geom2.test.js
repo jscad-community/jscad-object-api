@@ -1,6 +1,6 @@
 const test = require('ava')
 
-const { geometry } = require('@jscad/modeling')
+const { geometries } = require('@jscad/modeling')
 
 const { Geom2 } = require('../src/index')
 
@@ -9,7 +9,7 @@ test('Geom2 (constructor)', t => {
 
   t.is(geom.geometry.sides.length, 0)
 
-  const newgeometry = geometry.geom2.fromPoints([[0, 0], [1, 1], [0, 1]])
+  const newgeometry = geometries.geom2.fromPoints([[0, 0], [1, 1], [0, 1]])
   geom = new Geom2(newgeometry)
 
   t.is(geom.geometry.sides.length, 3)
