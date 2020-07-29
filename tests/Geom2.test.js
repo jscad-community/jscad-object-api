@@ -64,7 +64,7 @@ test('Geom2 (measurements)', t => {
 
   t.is(area, 25)
 
-  const bounds = geom.measureBounds()
+  const bounds = geom.measureBoundingBox()
 
   t.deepEqual(bounds, [[-2.5, -2.5, 0], [2.5, 2.5, 0]])
 

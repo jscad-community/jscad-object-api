@@ -62,8 +62,8 @@ Path2.prototype = {
     return 0 // none
   },
 
-  measureBounds: function () {
-    return jscad.measurements.measureBounds(this.geometry)
+  measureBoundingBox: function () {
+    return jscad.measurements.measureBoundingBox(this.geometry)
   },
 
   measureVolume: function () {
