@@ -18,8 +18,8 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "ava": "1.4.0",
-    "nyc": "15.0.0",
+    "ava": "3.10.0",
+    "nyc": "15.1.0",
     "standard": "14.3.1"
   }
 }

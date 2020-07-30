@@ -61,7 +61,7 @@ test('Path2 (measurements)', t => {
 
   t.is(area, 0)
 
-  const bounds = path.measureBounds()
+  const bounds = path.measureBoundingBox()
 
   t.deepEqual(bounds, [[-1, 0, 0], [1, 0.9957341762950346, 0]])
 

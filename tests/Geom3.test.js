@@ -44,7 +44,7 @@ test('Geom3 (measurements)', t => {
 
   t.is(area, 142)
 
-  const bounds = geom.measureBounds()
+  const bounds = geom.measureBoundingBox()
 
   t.deepEqual(bounds, [[-1.5, -2.5, -3.5], [1.5, 2.5, 3.5]])
 

@@ -70,8 +70,8 @@ Geom2.prototype = {
     return jscad.measurements.measureArea(this.geometry)
   },
 
-  measureBounds: function () {
-    return jscad.measurements.measureBounds(this.geometry)
+  measureBoundingBox: function () {
+    return jscad.measurements.measureBoundingBox(this.geometry)
   },
 
   measureVolume: function () {
