@@ -16,7 +16,9 @@
   ],
   "author": "z3dev",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "@jscad/modeling": "alpha"
+  },
   "devDependencies": {
     "ava": "3.10.0",
     "nyc": "15.1.0",
