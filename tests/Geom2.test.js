@@ -4,7 +4,7 @@ const { geometries } = require('@jscad/modeling')
 
 const { Geom2 } = require('../src/index')
 
-test('Geom2 (constructor)', t => {
+test('Geom2 (constructor)', (t) => {
   let geom = new Geom2()
 
   t.is(geom.geometry.sides.length, 0)
@@ -15,13 +15,13 @@ test('Geom2 (constructor)', t => {
   t.is(geom.geometry.sides.length, 3)
 })
 
-test('Geom2.fromPoints()', t => {
+test('Geom2.fromPoints()', (t) => {
   const geom = Geom2.fromPoints([[0, 0], [1, 1], [0, 1]])
 
   t.is(geom.geometry.sides.length, 3)
 })
 
-test('Geom2 (primitives)', t => {
+test('Geom2 (primitives)', (t) => {
   let geom = Geom2.circle({ center: [5, 5], radius: 5 })
 
   t.is(geom.geometry.sides.length, 32)
@@ -51,14 +51,14 @@ test('Geom2 (primitives)', t => {
   t.is(geom.geometry.sides.length, 10)
 })
 
-test('Geom2 (accessors)', t => {
+test('Geom2 (accessors)', (t) => {
   const geom = Geom2.square()
   const sides = geom.toSides()
 
   t.is(sides.length, 4)
 })
 
-test('Geom2 (measurements)', t => {
+test('Geom2 (measurements)', (t) => {
   const geom = Geom2.square({ size: 5 })
   const area = geom.measureArea()
 
@@ -73,7 +73,7 @@ test('Geom2 (measurements)', t => {
   t.is(volume, 0)
 })
 
-test('Geom2 (clone color reverse)', t => {
+test('Geom2 (clone color reverse)', (t) => {
   const geom1 = Geom2.fromPoints([[0, 0], [1, 1], [0, 1]])
 
   t.is(geom1.geometry.sides.length, 3)
@@ -97,7 +97,7 @@ test('Geom2 (clone color reverse)', t => {
   t.is(geom2.geometry.sides.length, 3)
 })
 
-test('Geom2 (boolean functions)', t => {
+test('Geom2 (boolean functions)', (t) => {
   const geom1 = Geom2.rectangle({ center: [0, 0], size: [5, 5] })
   let geom2 = Geom2.rectangle({ center: [2.5, 2.5], size: [5, 5] })
   geom2 = geom2.center({ center: [2.5, 2.5, 0] })
@@ -127,7 +127,7 @@ test('Geom2 (boolean functions)', t => {
   t.is(sides.length, 6)
 })
 
-test('Geom2 (transform functions)', t => {
+test('Geom2 (transform functions)', (t) => {
   const geom1 = Geom2.fromPoints([[0, 0], [5, 0], [5, 5]])
   let geom2 = geom1.center()
 
@@ -180,7 +180,7 @@ test('Geom2 (transform functions)', t => {
   t.deepEqual(sides[2], [[0, 5], [0, 10]])
 })
 
-test('Geom2 (expand offset)', t => {
+test('Geom2 (expand offset)', (t) => {
   const geom1 = Geom2.square({ size: 5 })
   let geom2 = geom1.offset({ delta: 2 })
 
@@ -203,7 +203,7 @@ test('Geom2 (expand offset)', t => {
   t.deepEqual(sides[3], [[1.5, 1.5], [-1.5, 1.5]])
 })
 
-test('Geom2 (conversions)', t => {
+test('Geom2 (conversions)', (t) => {
   const geom = Geom2.square({ center: [10, 0], size: 5 })
 
   // let string = geom.toString()

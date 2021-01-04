@@ -4,7 +4,7 @@ const { geometries } = require('@jscad/modeling')
 
 const { Geom3 } = require('../src/index')
 
-test('Geom3 (constructor)', t => {
+test('Geom3 (constructor)', (t) => {
   let geom = new Geom3()
 
   t.is(geom.geometry.polygons.length, 0)
@@ -15,13 +15,13 @@ test('Geom3 (constructor)', t => {
   t.is(geom.geometry.polygons.length, 1)
 })
 
-test('Geom3.fromPoints()', t => {
+test('Geom3.fromPoints()', (t) => {
   const geom = Geom3.fromPoints([[[0, 0, 0], [1, 0, 0], [1, 0, 1]]])
 
   t.is(geom.geometry.polygons.length, 1)
 })
 
-test('Geom3 (primitives)', t => {
+test('Geom3 (primitives)', (t) => {
   let geom = Geom3.cube({ center: [5, 5, 5], size: 5 })
 
   t.is(geom.geometry.polygons.length, 6)
@@ -31,14 +31,14 @@ test('Geom3 (primitives)', t => {
   t.is(geom.geometry.polygons.length, 6)
 })
 
-test('Geom3 (accessors)', t => {
+test('Geom3 (accessors)', (t) => {
   const geom = Geom3.cube()
   const polygons = geom.toPolygons()
 
   t.is(polygons.length, 6)
 })
 
-test('Geom3 (measurements)', t => {
+test('Geom3 (measurements)', (t) => {
   const geom = Geom3.cuboid({ size: [3, 5, 7] })
   const area = geom.measureArea()
 
@@ -53,7 +53,7 @@ test('Geom3 (measurements)', t => {
   t.is(volume, 105)
 })
 
-test('Geom3 (clone color)', t => {
+test('Geom3 (clone color)', (t) => {
   const geom1 = Geom3.cuboid({ size: [3, 5, 7] })
 
   t.is(geom1.geometry.polygons.length, 6)
@@ -70,7 +70,7 @@ test('Geom3 (clone color)', t => {
   t.deepEqual(geom2.geometry.color, [1, 0, 0, 1])
 })
 
-test('Geom3 (boolean functions)', t => {
+test('Geom3 (boolean functions)', (t) => {
   const geom1 = Geom3.cuboid({ center: [0, 0, 0], size: [5, 5, 5] })
   let geom2 = Geom3.cuboid({ center: [2.5, 2.5, 2.5], size: [5, 5, 5] })
   geom2 = geom2.center({ center: [2.5, 2.5, 2.5] })
@@ -100,7 +100,7 @@ test('Geom3 (boolean functions)', t => {
   t.is(polygons.length, 12)
 })
 
-test('Geom3 (transform functions)', t => {
+test('Geom3 (transform functions)', (t) => {
   let geom1 = Geom3.cuboid({ center: [3, 5, 7], size: [3, 5, 7] })
   geom1 = geom1.center({ center: [3, 5, 7] })
   let geom2 = geom1.center()
@@ -152,7 +152,7 @@ test('Geom3 (transform functions)', t => {
   t.deepEqual(polygons[0].vertices, [[-3.5, 7.5, -1.5], [-3.5, 7.5, 5.5], [-3.5, 12.5, 5.5], [-3.5, 12.5, -1.5]])
 })
 
-test('Geom3 (expand)', t => {
+test('Geom3 (expand)', (t) => {
   const geom1 = Geom3.cube({ size: 5 })
   const geom2 = geom1.expand({ delta: 2 })
 
@@ -162,7 +162,7 @@ test('Geom3 (expand)', t => {
   t.is(polygons.length, 114)
 })
 
-test('Geom3 (conversions)', t => {
+test('Geom3 (conversions)', (t) => {
   // const geom = Geom3.cube({ size: 5 })
 
   // let string = geom.toString()
