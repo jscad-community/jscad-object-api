@@ -68,6 +68,10 @@ test('Geom2 (measurements)', (t) => {
 
   t.deepEqual(bounds, [[-2.5, -2.5, 0], [2.5, 2.5, 0]])
 
+  const epsilon = geom.measureEpsilon()
+
+  t.is(epsilon, 0.00005)
+
   const volume = geom.measureVolume()
 
   t.is(volume, 0)
@@ -125,6 +129,30 @@ test('Geom2 (boolean functions)', (t) => {
 
   sides = geom3.toSides()
   t.is(sides.length, 6)
+})
+
+test('Geom2 (hull functions)', (t) => {
+  const geom1 = Geom2.rectangle({ center: [0, 0], size: [5, 5] })
+  const geom2 = Geom2.rectangle({ center: [25, 25], size: [5, 5] })
+  const geom3 = Geom2.rectangle({ center: [-25, 25], size: [5, 5] })
+
+  let hulled = geom1.hull(geom2, geom3)
+
+  t.not(geom1, hulled)
+  t.not(geom1, hulled)
+  t.not(geom2, hulled)
+
+  let sides = hulled.toSides()
+  t.is(sides.length, 6)
+
+  hulled = geom1.hullChain(geom2, geom3)
+
+  t.not(geom1, hulled)
+  t.not(geom1, hulled)
+  t.not(geom2, hulled)
+
+  sides = hulled.toSides()
+  t.is(sides.length, 8)
 })
 
 test('Geom2 (transform functions)', (t) => {

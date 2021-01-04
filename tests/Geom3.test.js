@@ -48,6 +48,10 @@ test('Geom3 (measurements)', (t) => {
 
   t.deepEqual(bounds, [[-1.5, -2.5, -3.5], [1.5, 2.5, 3.5]])
 
+  const epsilon = geom.measureEpsilon()
+
+  t.is(epsilon, 0.00005)
+
   const volume = geom.measureVolume()
 
   t.is(volume, 105)
@@ -98,6 +102,30 @@ test('Geom3 (boolean functions)', (t) => {
 
   polygons = geom3.toPolygons()
   t.is(polygons.length, 12)
+})
+
+test('Geom3 (hull functions)', (t) => {
+  const geom1 = Geom3.cuboid({ center: [0, 0, 0], size: [5, 5, 5] })
+  const geom2 = Geom3.cuboid({ center: [25, 25, 25], size: [5, 5, 5] })
+  const geom3 = Geom3.cuboid({ center: [-25, 25, 25], size: [5, 5, 5] })
+
+  let hulled = geom1.hull(geom2, geom3)
+
+  t.not(geom1, hulled)
+  t.not(geom2, hulled)
+  t.not(geom3, hulled)
+
+  let polygons = hulled.toPolygons()
+  t.is(polygons.length, 12)
+
+  hulled = geom1.hullChain(geom2, geom3)
+
+  t.not(geom1, hulled)
+  t.not(geom2, hulled)
+  t.not(geom3, hulled)
+
+  polygons = hulled.toPolygons()
+  t.is(polygons.length, 15)
 })
 
 test('Geom3 (transform functions)', (t) => {

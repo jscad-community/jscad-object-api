@@ -93,6 +93,10 @@ Geom3.prototype = {
     return jscad.measurements.measureBoundingBox(this.geometry)
   },
 
+  measureEpsilon: function () {
+    return jscad.measurements.measureEpsilon(this.geometry)
+  },
+
   measureVolume: function () {
     return jscad.measurements.measureVolume(this.geometry)
   },
@@ -181,6 +185,28 @@ Geom3.prototype = {
 
     const newgeometry = jscad.booleans.union(geometries)
     return new Geom3(newgeometry)
+  },
+
+  //
+  // hull methods
+  //
+  hull: function (...objects) {
+    objects = jscad.utils.flatten(objects)
+    const geometries = [this.geometry]
+    objects.forEach((object) => {
+      geometries.push(object.geometry)
+    })
+    const result = jscad.hulls.hull(geometries)
+    return new Geom3(result)
+  },
+  hullChain: function (...objects) {
+    objects = jscad.utils.flatten(objects)
+    const geometries = [this.geometry]
+    objects.forEach((object) => {
+      geometries.push(object.geometry)
+    })
+    const result = jscad.hulls.hullChain(geometries)
+    return new Geom3(result)
   },
 
   //

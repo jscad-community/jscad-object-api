@@ -65,6 +65,10 @@ test('Path2 (measurements)', (t) => {
 
   t.deepEqual(bounds, [[-1, 0, 0], [1, 0.9957341762950346, 0]])
 
+  const epsilon = path.measureEpsilon()
+
+  t.is(epsilon, 0.000014978670881475174)
+
   const volume = path.measureVolume()
 
   t.is(volume, 0)
@@ -130,6 +134,30 @@ test('Path2 (append functions)', (t) => {
   t.not(path1, path2)
 
   points = path2.toPoints()
+  t.is(points.length, 4)
+})
+
+test('Path2 (hull functions)', (t) => {
+  const path1 = Path2.fromPoints([[0, 0], [1, 1], [0, 1]])
+  const path2 = Path2.fromPoints([[5, 5], [6, 6], [5, 6]])
+  const path3 = Path2.fromPoints([[-5, 5], [-4, 6], [-5, 6]])
+
+  let hulled = path1.hull(path2, path3)
+
+  t.not(path1, hulled)
+  t.not(path1, hulled)
+  t.not(path2, hulled)
+
+  let points = hulled.toPoints()
+  t.is(points.length, 4)
+
+  hulled = path1.hullChain(path2, path3) // NOTE: returns only first hull (path1, path2)
+
+  t.not(path1, hulled)
+  t.not(path1, hulled)
+  t.not(path2, hulled)
+
+  points = hulled.toPoints()
   t.is(points.length, 4)
 })
 
