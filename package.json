@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "coverage": "nyc --reporter=html --reporter=text npm test",
-    "lint": "standard './**/*.js'",
+    "lint": "standardx './**/*.js'",
     "test": "ava 'tests/**/*.test.js' --verbose --timeout 2m"
   },
   "keywords": [
@@ -22,6 +22,34 @@
   "devDependencies": {
     "ava": "3.10.0",
     "nyc": "15.1.0",
-    "standard": "14.3.1"
+    "standardx": "5.0.0"
+  },
+  "standardx": {
+    "ignore": [
+      "**/dist/"
+    ],
+    "env": {
+      "browser": true,
+      "node": true
+    }
+  },
+  "eslintConfig": {
+    "rules": {
+      "func-style": [
+        "error",
+        "expression"
+      ],
+      "arrow-body-style": [
+        "error",
+        "as-needed"
+      ],
+      "arrow-parens": [
+        "error",
+        "always"
+      ],
+      "arrow-spacing": "error",
+      "prefer-arrow-callback": "error",
+      "no-var": "error"
+    }
   }
 }
