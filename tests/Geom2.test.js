@@ -104,7 +104,6 @@ test('Geom2 (clone color reverse)', (t) => {
 test('Geom2 (boolean functions)', (t) => {
   const geom1 = Geom2.rectangle({ center: [0, 0], size: [5, 5] })
   let geom2 = Geom2.rectangle({ center: [2.5, 2.5], size: [5, 5] })
-  geom2 = geom2.center({ center: [2.5, 2.5, 0] })
 
   let geom3 = geom1.union(geom2)
 
