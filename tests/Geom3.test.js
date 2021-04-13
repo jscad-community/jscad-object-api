@@ -77,7 +77,6 @@ test('Geom3 (clone color)', (t) => {
 test('Geom3 (boolean functions)', (t) => {
   const geom1 = Geom3.cuboid({ center: [0, 0, 0], size: [5, 5, 5] })
   let geom2 = Geom3.cuboid({ center: [2.5, 2.5, 2.5], size: [5, 5, 5] })
-  geom2 = geom2.center({ center: [2.5, 2.5, 2.5] })
 
   let geom3 = geom1.union(geom2)
 
@@ -130,7 +129,6 @@ test('Geom3 (hull functions)', (t) => {
 
 test('Geom3 (transform functions)', (t) => {
   let geom1 = Geom3.cuboid({ center: [3, 5, 7], size: [3, 5, 7] })
-  geom1 = geom1.center({ center: [3, 5, 7] })
   let geom2 = geom1.center()
 
   t.not(geom1, geom2)

@@ -85,6 +85,11 @@ Geom2.prototype = {
   //
   // producer methods, i.e. methods that produce new Geom2 instances
   //
+  align: function (options) {
+    const newgeom = jscad.transforms.align(options, this.geometry)
+    return new Geom2(newgeom)
+  },
+
   center: function (options) {
     const newgeom = jscad.transforms.center(options, this.geometry)
     return new Geom2(newgeom)
