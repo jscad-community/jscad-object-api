@@ -77,6 +77,11 @@ Path2.prototype = {
   //
   // producer methods, i.e. methods that produce new Path2 instances
   //
+  align: function (options) {
+    const newgeom = jscad.transforms.align(options, this.geometry)
+    return new Path2(newgeom)
+  },
+
   appendArc: function (options) {
     const newpath = jscad.geometries.path2.appendArc(options, this.geometry)
     return new Path2(newpath)

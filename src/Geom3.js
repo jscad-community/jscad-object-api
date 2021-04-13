@@ -104,6 +104,11 @@ Geom3.prototype = {
   //
   // producer methods, i.e. methods that produce new Geom3 instances
   //
+  align: function (options) {
+    const newgeometry = jscad.transforms.align(options, this.geometry)
+    return new Geom3(newgeometry)
+  },
+
   center: function (options) {
     const newgeometry = jscad.transforms.center(options, this.geometry)
     return new Geom3(newgeometry)
