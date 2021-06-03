@@ -101,6 +101,12 @@ test('Geom3 (boolean functions)', (t) => {
 
   polygons = geom3.toPolygons()
   t.is(polygons.length, 12)
+
+  let geometries = geom3.scission()
+  t.is(geometries.length, 1)
+
+  polygons = geometries[0].toPolygons()
+  t.is(polygons.length, 12)
 })
 
 test('Geom3 (hull functions)', (t) => {
@@ -176,6 +182,17 @@ test('Geom3 (transform functions)', (t) => {
   polygons = geom2.toPolygons()
   t.is(polygons.length, 6)
   t.deepEqual(polygons[0].vertices, [[-3.5, 7.5, -1.5], [-3.5, 7.5, 5.5], [-3.5, 12.5, 5.5], [-3.5, 12.5, -1.5]])
+})
+
+test('Geom3 (project)', (t) => {
+  const geom1 = Geom3.cube({ size: 5 })
+  const geom2 = geom1.project({})
+
+  t.not(geom1, geom2)
+
+  // test that the result is 2D
+  const sides = geom2.toSides()
+  t.is(sides.length, 4)
 })
 
 test('Geom3 (expand)', (t) => {
