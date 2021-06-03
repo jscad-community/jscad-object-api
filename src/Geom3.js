@@ -150,6 +150,11 @@ Geom3.prototype = {
     return new Geom3(newgeometry)
   },
 
+  scission: function () {
+    const newgeometries = jscad.booleans.scission(this.geometry).map((newgeometry) => new Geom3(newgeometry))
+    return newgeometries
+  },
+
   transform: function (matrix) {
     const newgeometry = jscad.geometries.geom3.transform(matrix, this.geometry)
     return new Geom3(newgeometry)
@@ -190,6 +195,15 @@ Geom3.prototype = {
 
     const newgeometry = jscad.booleans.union(geometries)
     return new Geom3(newgeometry)
+  },
+
+  //
+  // extrusion methods
+  //
+  project: function (options) {
+    const newgeometry = jscad.extrusions.project(options, this.geometry)
+    const Geom2 = require('./Geom2')
+    return new Geom2(newgeometry) // 2D PROJECTION
   },
 
   //
