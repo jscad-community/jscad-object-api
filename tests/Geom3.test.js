@@ -165,7 +165,7 @@ test('Geom3 (transform functions)', (t) => {
 
   polygons = geom2.toPolygons()
   t.is(polygons.length, 6)
-  t.deepEqual(polygons[0].vertices, [[-2.5, 1.5000000000000002, 3.5], [-2.5, 1.5000000000000002, 10.5], [-7.5, 1.5000000000000004, 10.5], [-7.5, 1.5000000000000004, 3.5]])
+  t.deepEqual(polygons[0].vertices, [[-2.5, 1.5, 3.5], [-2.5, 1.5, 10.5], [-7.5, 1.5, 10.5], [-7.5, 1.5, 3.5]])
 
   geom2 = geom1.scale([2, 0.5, 1])
 

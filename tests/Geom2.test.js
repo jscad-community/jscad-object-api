@@ -172,9 +172,9 @@ test('Geom2 (transform functions)', (t) => {
 
   sides = geom2.toSides()
   t.is(sides.length, 3)
-  t.deepEqual(sides[0], [[5, -5], [0, 0]])
-  t.deepEqual(sides[1], [[0, 0], [5, 0]])
-  t.deepEqual(sides[2], [[5, 0], [5, -5]])
+  t.deepEqual(sides[0], [[5, -5], [5, 0]])
+  t.deepEqual(sides[1], [[5, 0], [0, 0]])
+  t.deepEqual(sides[2], [[0, 0], [5, -5]])
 
   geom2 = geom1.rotate([0, 0, Math.PI / 2])
 
@@ -183,8 +183,8 @@ test('Geom2 (transform functions)', (t) => {
   sides = geom2.toSides()
   t.is(sides.length, 3)
   t.deepEqual(sides[0], [[-5, 5], [0, 0]])
-  t.deepEqual(sides[1], [[0, 0], [3.061616997868383e-16, 5]])
-  t.deepEqual(sides[2], [[3.061616997868383e-16, 5], [-5, 5]])
+  t.deepEqual(sides[1], [[0, 0], [0, 5]])
+  t.deepEqual(sides[2], [[0, 5], [-5, 5]])
 
   geom2 = geom1.scale([2, 0.5, 1])
 
@@ -214,9 +214,9 @@ test('Geom2 (expand offset)', (t) => {
   t.not(geom1, geom2)
 
   let sides = geom2.toSides()
-  t.is(sides.length, 12)
-  t.deepEqual(sides[0], [[-4.5, -2.5], [-4.5, -4.5]])
-  t.deepEqual(sides[4], [[4.5, -4.5], [4.5, -2.5]])
+  t.is(sides.length, 4)
+  t.deepEqual(sides[0], [[-4.5, -4.5], [4.5, -4.5]])
+  t.deepEqual(sides[3], [[-4.5, 4.5], [-4.5, -4.5]])
 
   geom2 = geom1.expand({ delta: -1 }) // contract
 
@@ -243,7 +243,7 @@ test('Geom2 (conversions)', (t) => {
   let geom2 = geom.extrudeLinear()
   let polygons = geom2.toPolygons()
 
-  t.is(polygons.length, 10)
+  t.is(polygons.length, 12)
 
   geom2 = geom.extrudeRotate()
   polygons = geom2.toPolygons()

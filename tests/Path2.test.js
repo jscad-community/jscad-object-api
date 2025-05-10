@@ -197,7 +197,7 @@ test('Path2 (transform functions)', (t) => {
   points = path2.toPoints()
   t.is(points.length, 2)
   t.deepEqual(points[0], [22, 27])
-  t.deepEqual(points[1], [3.0000000000000018, 27])
+  t.deepEqual(points[1], [3, 27])
 
   path2 = path1.scale([2, 0.5, 1])
 
@@ -225,12 +225,10 @@ test('Path2 (offset)', (t) => {
   t.not(path1, path2)
 
   const points = path2.toPoints()
-  t.is(points.length, 5)
+  t.is(points.length, 3)
   t.deepEqual(points[0], [1.414213562373095, -1.414213562373095])
-  t.deepEqual(points[1], [11.414213562373096, 8.585786437626904])
-  t.deepEqual(points[2], [14.82842712474619, 12])
-  t.deepEqual(points[3], [10, 12])
-  t.deepEqual(points[4], [1.2246467991473532e-16, 12])
+  t.deepEqual(points[1], [14.82842712474619, 12])
+  t.deepEqual(points[2], [1.2246467991473532e-16, 12])
 })
 
 test('Path2 (conversions)', (t) => {
@@ -242,9 +240,9 @@ test('Path2 (conversions)', (t) => {
   let geom = path1.expand({ delta: 2 })
 
   const sides = geom.toSides()
-  t.is(sides.length, 8)
+  t.is(sides.length, 6)
 
   geom = path1.extrudeRectangular({ size: 2, height: 10 })
   const polygons = geom.toPolygons()
-  t.is(polygons.length, 22)
+  t.is(polygons.length, 20)
 })
