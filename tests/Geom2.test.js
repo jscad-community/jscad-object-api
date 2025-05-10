@@ -1,6 +1,6 @@
 const test = require('ava')
 
-const { geometries } = require('@jscad/modeling')
+const { geometries, maths } = require('@jscad/modeling')
 
 const { Geom2 } = require('../src/index')
 
@@ -205,6 +205,16 @@ test('Geom2 (transform functions)', (t) => {
   t.deepEqual(sides[0], [[0, 10], [-5, 5]])
   t.deepEqual(sides[1], [[-5, 5], [0, 5]])
   t.deepEqual(sides[2], [[0, 5], [0, 10]])
+
+  geom2 = geom1.transform(maths.mat4.fromScaling(maths.mat4.create(), [2, 2, 2]))
+
+  t.not(geom1, geom2)
+
+  sides = geom2.toSides()
+  t.is(sides.length, 3)
+  t.deepEqual(sides[0], [[10, 10], [0, 0]])
+  t.deepEqual(sides[1], [[0, 0], [10, 0]])
+  t.deepEqual(sides[2], [[10, 0], [10, 10]])
 })
 
 test('Geom2 (expand offset)', (t) => {

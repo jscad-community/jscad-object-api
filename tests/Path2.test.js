@@ -1,6 +1,6 @@
 const test = require('ava')
 
-const { geometries } = require('@jscad/modeling')
+const { geometries, maths } = require('@jscad/modeling')
 
 const { Path2 } = require('../src/index')
 
@@ -216,6 +216,15 @@ test('Path2 (transform functions)', (t) => {
   t.is(points.length, 2)
   t.deepEqual(points[0], [22, -17])
   t.deepEqual(points[1], [22, 2])
+
+  path2 = path1.transform(maths.mat4.fromScaling(maths.mat4.create(), [2, 2, 0]))
+
+  t.not(path1, path2)
+
+  points = path2.toPoints()
+  t.is(points.length, 2)
+  t.deepEqual(points[0], [54, -44])
+  t.deepEqual(points[1], [54, -6])
 })
 
 test('Path2 (offset)', (t) => {
