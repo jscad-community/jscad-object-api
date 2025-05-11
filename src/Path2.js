@@ -168,7 +168,10 @@ Path2.prototype = {
     return new Path2(newgeom)
   },
 
-  // TODO snap
+  snap: function () {
+    const newgeometry = jscad.modifiers.snap(this.geometry)
+    return new Path2(newgeometry)
+  },
 
   transform: function (matrix) {
     const newpath = jscad.geometries.path2.transform(matrix, this.geometry)

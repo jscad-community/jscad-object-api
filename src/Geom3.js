@@ -166,7 +166,10 @@ Geom3.prototype = {
     return new Geom3(newgeometry)
   },
 
-  // TODO snap
+  snap: function () {
+    const newgeometry = jscad.modifiers.snap(this.geometry)
+    return new Geom3(newgeometry)
+  },
 
   scale: function (factors) {
     const newgeometry = jscad.transforms.scale(factors, this.geometry)

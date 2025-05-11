@@ -212,6 +212,16 @@ test('Geom2 (transform functions)', (t) => {
   t.deepEqual(sides[1], [[0, 0], [10, 0]])
   t.deepEqual(sides[2], [[10, 0], [10, 2.5]])
 
+  geom2 = geom1.snap()
+
+  t.not(geom1, geom2)
+
+  sides = geom2.toSides()
+  t.is(sides.length, 3)
+  t.deepEqual(sides[0], [[5, 5], [0, 0]])
+  t.deepEqual(sides[1], [[0, 0], [5, 0]])
+  t.deepEqual(sides[2], [[5, 0], [5, 5]])
+
   geom2 = geom1.translate([-5, 5, 0])
 
   t.not(geom1, geom2)

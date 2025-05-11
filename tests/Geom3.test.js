@@ -229,6 +229,14 @@ test('Geom3 (transform functions)', (t) => {
   t.is(polygons.length, 6)
   t.deepEqual(polygons[0].vertices, [[3, 1.25, 3.5], [3, 1.25, 10.5], [3, 3.75, 10.5], [3, 3.75, 3.5]])
 
+  geom2 = geom1.snap()
+
+  t.not(geom1, geom2)
+
+  polygons = geom2.toPolygons()
+  t.is(polygons.length, 6)
+  t.deepEqual(polygons[0].vertices, [[1.5, 2.5, 3.5], [1.5, 2.5, 10.5], [1.5, 7.5, 10.5], [1.5, 7.5, 3.5]])
+
   geom2 = geom1.translate([-5, 5, -5])
 
   t.not(geom1, geom2)

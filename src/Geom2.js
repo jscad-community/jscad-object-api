@@ -150,7 +150,10 @@ Geom2.prototype = {
     return new Geom2(newgeom)
   },
 
-  // TODO snap
+  snap: function () {
+    const newgeom = jscad.modifiers.snap(this.geometry)
+    return new Geom2(newgeom)
+  },
 
   reverse: function () {
     const newgeometry = jscad.geometries.geom2.reverse(this.geometry)
