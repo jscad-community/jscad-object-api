@@ -237,7 +237,11 @@ Geom2.prototype = {
     return jscad.geometries.geom2.toOutlines(this.geometry)
   },
 
-  // TODO extrudeHelical
+  extrudeHelical: function (options) {
+    const newgeometry = jscad.extrusions.extrudeHelical(options, this.geometry)
+    const Geom3 = require('./Geom3')
+    return new Geom3(newgeometry)
+  },
 
   extrudeLinear: function (options) {
     const newgeometry = jscad.extrusions.extrudeLinear(options, this.geometry)
@@ -245,7 +249,11 @@ Geom2.prototype = {
     return new Geom3(newgeometry)
   },
 
-  // TODO extrudeRectangular
+  extrudeRectangular: function (options) {
+    const newgeom3 = jscad.extrusions.extrudeRectangular(options, this.geometry)
+    const Geom3 = require('./Geom3')
+    return new Geom3(newgeom3)
+  },
 
   extrudeRotate: function (options) {
     const newgeometry = jscad.extrusions.extrudeRotate(options, this.geometry)

@@ -277,7 +277,13 @@ test('Path2 (conversions)', (t) => {
   const sides = geom.toSides()
   t.is(sides.length, 6)
 
+  const path2 = Path2.fromPoints([[0, 0], [10, 10], [0, 10], [0, 0]])
+  geom = path2.extrudeLinear()
+  let polygons = geom.toPolygons()
+
+  t.is(polygons.length, 8)
+
   geom = path1.extrudeRectangular({ size: 2, height: 10 })
-  const polygons = geom.toPolygons()
+  polygons = geom.toPolygons()
   t.is(polygons.length, 20)
 })

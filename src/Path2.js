@@ -213,7 +213,11 @@ Path2.prototype = {
     return `Path2: ${jscad.geometries.path2.toString(this.geometry)}`
   },
 
-  // TODO extrudeLinear
+  extrudeLinear: function (options) {
+    const newgeometry = jscad.extrusions.extrudeLinear(options, this.geometry)
+    const Geom3 = require('./Geom3')
+    return new Geom3(newgeometry)
+  },
 
   extrudeRectangular: function (options) {
     const newgeom3 = jscad.extrusions.extrudeRectangular(options, this.geometry)

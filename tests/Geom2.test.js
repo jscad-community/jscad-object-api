@@ -276,13 +276,23 @@ test('Geom2 (conversions)', (t) => {
 
   t.is(outlines.length, 1)
 
-  let geom2 = geom.extrudeLinear()
-  let polygons = geom2.toPolygons()
+  let geom2 = geom.extrudeHelical({ pitch: 10 })
 
+  let polygons = geom2.toPolygons()
+  t.is(polygons.length, 260)
+
+  geom2 = geom.extrudeLinear()
+
+  polygons = geom2.toPolygons()
   t.is(polygons.length, 12)
 
-  geom2 = geom.extrudeRotate()
-  polygons = geom2.toPolygons()
+  geom2 = geom.extrudeRectangular({ size: 2, height: 10 })
 
+  polygons = geom2.toPolygons()
+  t.is(polygons.length, 32)
+
+  geom2 = geom.extrudeRotate()
+
+  polygons = geom2.toPolygons()
   t.is(polygons.length, 96)
 })
