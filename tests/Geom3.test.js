@@ -34,7 +34,7 @@ test('Geom3 (primitives)', (t) => {
 
   t.is(geom.geometry.polygons.length, 96)
 
-  geom = Geom3.cylinderElliptic({ height: 2, startRadius: [10,5], endRadius: [8,3] })
+  geom = Geom3.cylinderElliptic({ height: 2, startRadius: [10, 5], endRadius: [8, 3] })
 
   t.is(geom.geometry.polygons.length, 128)
 
@@ -48,7 +48,7 @@ test('Geom3 (primitives)', (t) => {
 
   const points = [[-1, -1, -1], [-1, -1, 1], [-1, 1, 1]]
   const faces = [[0, 1, 2]]
-  geom = Geom3.polyhedron({points, faces})
+  geom = Geom3.polyhedron({ points, faces })
 
   t.is(geom.geometry.polygons.length, 1)
 
@@ -130,7 +130,7 @@ test('Geom3 (clone color)', (t) => {
 
 test('Geom3 (boolean functions)', (t) => {
   const geom1 = Geom3.cuboid({ center: [0, 0, 0], size: [5, 5, 5] })
-  let geom2 = Geom3.cuboid({ center: [2.5, 2.5, 2.5], size: [5, 5, 5] })
+  const geom2 = Geom3.cuboid({ center: [2.5, 2.5, 2.5], size: [5, 5, 5] })
 
   let geom3 = geom1.union(geom2)
 
@@ -156,7 +156,7 @@ test('Geom3 (boolean functions)', (t) => {
   polygons = geom3.toPolygons()
   t.is(polygons.length, 12)
 
-  let geometries = geom3.scission()
+  const geometries = geom3.scission()
   t.is(geometries.length, 1)
 
   polygons = geometries[0].toPolygons()
@@ -188,7 +188,7 @@ test('Geom3 (hull functions)', (t) => {
 })
 
 test('Geom3 (transform functions)', (t) => {
-  let geom1 = Geom3.cuboid({ center: [3, 5, 7], size: [3, 5, 7] })
+  const geom1 = Geom3.cuboid({ center: [3, 5, 7], size: [3, 5, 7] })
   let geom2 = geom1.center()
 
   t.not(geom1, geom2)
@@ -251,7 +251,7 @@ test('Geom3 (transform functions)', (t) => {
 
   polygons = geom2.toPolygons()
   t.is(polygons.length, 6)
-  t.deepEqual(polygons[0].vertices, [[3, 5, 7 ], [3, 5, 21], [3, 15, 21], [3, 15, 7]])
+  t.deepEqual(polygons[0].vertices, [[3, 5, 7], [3, 5, 21], [3, 15, 21], [3, 15, 7]])
 })
 
 test('Geom3 (project)', (t) => {

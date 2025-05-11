@@ -225,7 +225,6 @@ test('Path2 (transform functions)', (t) => {
   t.deepEqual(points[1], [54, -1.5])
 
   path2 = path1.snap()
-  const e = path1.measureEpsilon()
 
   t.not(path1, path2)
 
