@@ -65,6 +65,22 @@ test('Path2 (measurements)', (t) => {
 
   t.deepEqual(bounds, [[-1, 0, 0], [1, 0.9957341762950346, 0]])
 
+  const sphere = path.measureBoundingSphere()
+
+  t.deepEqual(sphere, [[-1.850371707708594e-17, 0.5995399254034212, 0], 1.1659537392850283])
+
+  const center = path.measureCenter()
+
+  t.deepEqual(center, [0, 0.4978670881475173, 0])
+
+  const mass = path.measureCenterOfMass()
+
+  t.deepEqual(mass, [0, 0, 0])
+
+  const dimensions = path.measureDimensions()
+
+  t.deepEqual(dimensions, [2, 0.9957341762950346, 0])
+
   const epsilon = path.measureEpsilon()
 
   t.is(epsilon, 0.000014978670881475174)

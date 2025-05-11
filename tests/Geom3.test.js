@@ -86,6 +86,22 @@ test('Geom3 (measurements)', (t) => {
 
   t.deepEqual(bounds, [[-1.5, -2.5, -3.5], [1.5, 2.5, 3.5]])
 
+  const sphere = geom.measureBoundingSphere()
+
+  t.deepEqual(sphere, [[0, 0, 0], 4.55521678957215])
+
+  const center = geom.measureCenter()
+
+  t.deepEqual(center, [0, 0, 0])
+
+  const mass = geom.measureCenterOfMass()
+
+  t.deepEqual(mass, [0, 0, 0])
+
+  const dimensions = geom.measureDimensions()
+
+  t.deepEqual(dimensions, [3, 5, 7])
+
   const epsilon = geom.measureEpsilon()
 
   t.is(epsilon, 0.00005)

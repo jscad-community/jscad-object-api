@@ -6,6 +6,9 @@ const jscad = require('@jscad/modeling')
  * Holds a JSCAD 2D geometry consisting of a number of sides.
  * Each side is a line segment as defined by two points.
  * @constructor
+ * @param {jscad.geometries.geom2} [geometry] a provided geometry
+ *
+ * @example
  */
 const Geom2 = function (geometry) {
   if (geometry === undefined) {
@@ -74,6 +77,22 @@ Geom2.prototype = {
     return jscad.measurements.measureBoundingBox(this.geometry)
   },
 
+  measureBoundingSphere: function () {
+    return jscad.measurements.measureBoundingSphere(this.geometry)
+  },
+
+  measureCenter: function () {
+    return jscad.measurements.measureCenter(this.geometry)
+  },
+
+  measureCenterOfMass: function () {
+    return jscad.measurements.measureCenterOfMass(this.geometry)
+  },
+
+  measureDimensions: function () {
+    return jscad.measurements.measureDimensions(this.geometry)
+  },
+
   measureEpsilon: function () {
     return jscad.measurements.measureEpsilon(this.geometry)
   },
@@ -130,6 +149,8 @@ Geom2.prototype = {
     const newgeom = jscad.transforms.scale(factors, this.geometry)
     return new Geom2(newgeom)
   },
+
+  // TODO snap
 
   reverse: function () {
     const newgeometry = jscad.geometries.geom2.reverse(this.geometry)
@@ -191,6 +212,7 @@ Geom2.prototype = {
     const result = jscad.hulls.hull(geometries)
     return new Geom2(result)
   },
+
   hullChain: function (...objects) {
     objects = jscad.utils.flatten(objects)
     const geometries = [this.geometry]
@@ -212,11 +234,15 @@ Geom2.prototype = {
     return jscad.geometries.geom2.toOutlines(this.geometry)
   },
 
+  // TODO extrudeHelical
+
   extrudeLinear: function (options) {
     const newgeometry = jscad.extrusions.extrudeLinear(options, this.geometry)
     const Geom3 = require('./Geom3')
     return new Geom3(newgeometry)
   },
+
+  // TODO extrudeRectangular
 
   extrudeRotate: function (options) {
     const newgeometry = jscad.extrusions.extrudeRotate(options, this.geometry)

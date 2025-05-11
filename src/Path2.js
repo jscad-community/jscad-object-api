@@ -66,6 +66,22 @@ Path2.prototype = {
     return jscad.measurements.measureBoundingBox(this.geometry)
   },
 
+  measureBoundingSphere: function () {
+    return jscad.measurements.measureBoundingSphere(this.geometry)
+  },
+
+  measureCenter: function () {
+    return jscad.measurements.measureCenter(this.geometry)
+  },
+
+  measureCenterOfMass: function () {
+    return jscad.measurements.measureCenterOfMass(this.geometry)
+  },
+
+  measureDimensions: function () {
+    return jscad.measurements.measureDimensions(this.geometry)
+  },
+
   measureEpsilon: function () {
     return jscad.measurements.measureEpsilon(this.geometry)
   },
@@ -152,6 +168,8 @@ Path2.prototype = {
     return new Path2(newgeom)
   },
 
+  // TODO snap
+
   transform: function (matrix) {
     const newpath = jscad.geometries.path2.transform(matrix, this.geometry)
     return new Path2(newpath)
@@ -174,6 +192,7 @@ Path2.prototype = {
     const result = jscad.hulls.hull(geometries)
     return new Path2(result)
   },
+
   hullChain: function (...objects) {
     objects = jscad.utils.flatten(objects)
     const geometries = [this.geometry]
@@ -190,6 +209,8 @@ Path2.prototype = {
   toString: function () {
     return `Path2: ${jscad.geometries.path2.toString(this.geometry)}`
   },
+
+  // TODO extrudeLinear
 
   extrudeRectangular: function (options) {
     const newgeom3 = jscad.extrusions.extrudeRectangular(options, this.geometry)
