@@ -1,11 +1,12 @@
 {
   "name": "jscad-object-api",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Object wrappers of the JSCAD geometries",
   "main": "src/index.js",
   "scripts": {
     "coverage": "nyc --reporter=html --reporter=text npm test",
     "lint": "standardx './**/*.js'",
+    "package": "rollup --config",
     "test": "ava 'tests/**/*.test.js' --verbose --timeout 2m"
   },
   "keywords": [
@@ -20,8 +21,11 @@
     "@jscad/modeling": "^2.0.0"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-node-resolve": "^16.0.1",
     "ava": "^6.0.0",
     "nyc": "^17.0.0",
+    "rollup": "^4.40.0",
     "standardx": "^7.0.0"
   },
   "standardx": {
