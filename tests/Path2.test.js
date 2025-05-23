@@ -1,6 +1,6 @@
 const test = require('ava')
 
-const { geometries } = require('@jscad/modeling')
+const { geometries, maths } = require('@jscad/modeling')
 
 const { Path2 } = require('../src/index')
 
@@ -64,6 +64,22 @@ test('Path2 (measurements)', (t) => {
   const bounds = path.measureBoundingBox()
 
   t.deepEqual(bounds, [[-1, 0, 0], [1, 0.9957341762950346, 0]])
+
+  const sphere = path.measureBoundingSphere()
+
+  t.deepEqual(sphere, [[-1.850371707708594e-17, 0.5995399254034212, 0], 1.1659537392850283])
+
+  const center = path.measureCenter()
+
+  t.deepEqual(center, [0, 0.4978670881475173, 0])
+
+  const mass = path.measureCenterOfMass()
+
+  t.deepEqual(mass, [0, 0, 0])
+
+  const dimensions = path.measureDimensions()
+
+  t.deepEqual(dimensions, [2, 0.9957341762950346, 0])
 
   const epsilon = path.measureEpsilon()
 
@@ -197,7 +213,7 @@ test('Path2 (transform functions)', (t) => {
   points = path2.toPoints()
   t.is(points.length, 2)
   t.deepEqual(points[0], [22, 27])
-  t.deepEqual(points[1], [3.0000000000000018, 27])
+  t.deepEqual(points[1], [3, 27])
 
   path2 = path1.scale([2, 0.5, 1])
 
@@ -208,6 +224,15 @@ test('Path2 (transform functions)', (t) => {
   t.deepEqual(points[0], [54, -11])
   t.deepEqual(points[1], [54, -1.5])
 
+  path2 = path1.snap()
+
+  t.not(path1, path2)
+
+  points = path2.toPoints()
+  t.is(points.length, 2)
+  t.deepEqual(points[0], [27.000045, -22.000005])
+  t.deepEqual(points[1], [27.000045, -3.0000050000000003])
+
   path2 = path1.translate([-5, 5, 0])
 
   t.not(path1, path2)
@@ -216,6 +241,15 @@ test('Path2 (transform functions)', (t) => {
   t.is(points.length, 2)
   t.deepEqual(points[0], [22, -17])
   t.deepEqual(points[1], [22, 2])
+
+  path2 = path1.transform(maths.mat4.fromScaling(maths.mat4.create(), [2, 2, 0]))
+
+  t.not(path1, path2)
+
+  points = path2.toPoints()
+  t.is(points.length, 2)
+  t.deepEqual(points[0], [54, -44])
+  t.deepEqual(points[1], [54, -6])
 })
 
 test('Path2 (offset)', (t) => {
@@ -225,12 +259,10 @@ test('Path2 (offset)', (t) => {
   t.not(path1, path2)
 
   const points = path2.toPoints()
-  t.is(points.length, 5)
+  t.is(points.length, 3)
   t.deepEqual(points[0], [1.414213562373095, -1.414213562373095])
-  t.deepEqual(points[1], [11.414213562373096, 8.585786437626904])
-  t.deepEqual(points[2], [14.82842712474619, 12])
-  t.deepEqual(points[3], [10, 12])
-  t.deepEqual(points[4], [1.2246467991473532e-16, 12])
+  t.deepEqual(points[1], [14.82842712474619, 12])
+  t.deepEqual(points[2], [1.2246467991473532e-16, 12])
 })
 
 test('Path2 (conversions)', (t) => {
@@ -242,9 +274,15 @@ test('Path2 (conversions)', (t) => {
   let geom = path1.expand({ delta: 2 })
 
   const sides = geom.toSides()
-  t.is(sides.length, 8)
+  t.is(sides.length, 6)
+
+  const path2 = Path2.fromPoints([[0, 0], [10, 10], [0, 10], [0, 0]])
+  geom = path2.extrudeLinear()
+  let polygons = geom.toPolygons()
+
+  t.is(polygons.length, 8)
 
   geom = path1.extrudeRectangular({ size: 2, height: 10 })
-  const polygons = geom.toPolygons()
-  t.is(polygons.length, 22)
+  polygons = geom.toPolygons()
+  t.is(polygons.length, 20)
 })

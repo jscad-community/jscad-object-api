@@ -1,6 +1,6 @@
 const test = require('ava')
 
-const { geometries } = require('@jscad/modeling')
+const { geometries, maths } = require('@jscad/modeling')
 
 const { Geom2 } = require('../src/index')
 
@@ -68,6 +68,22 @@ test('Geom2 (measurements)', (t) => {
 
   t.deepEqual(bounds, [[-2.5, -2.5, 0], [2.5, 2.5, 0]])
 
+  const sphere = geom.measureBoundingSphere()
+
+  t.deepEqual(sphere, [[0, 0, 0], 3.5355339059327378])
+
+  const center = geom.measureCenter()
+
+  t.deepEqual(center, [0, 0, 0])
+
+  const mass = geom.measureCenterOfMass()
+
+  t.deepEqual(mass, [0, 0, 0])
+
+  const dimensions = geom.measureDimensions()
+
+  t.deepEqual(dimensions, [5, 5, 0])
+
   const epsilon = geom.measureEpsilon()
 
   t.is(epsilon, 0.00005)
@@ -103,7 +119,7 @@ test('Geom2 (clone color reverse)', (t) => {
 
 test('Geom2 (boolean functions)', (t) => {
   const geom1 = Geom2.rectangle({ center: [0, 0], size: [5, 5] })
-  let geom2 = Geom2.rectangle({ center: [2.5, 2.5], size: [5, 5] })
+  const geom2 = Geom2.rectangle({ center: [2.5, 2.5], size: [5, 5] })
 
   let geom3 = geom1.union(geom2)
 
@@ -172,9 +188,9 @@ test('Geom2 (transform functions)', (t) => {
 
   sides = geom2.toSides()
   t.is(sides.length, 3)
-  t.deepEqual(sides[0], [[5, -5], [0, 0]])
-  t.deepEqual(sides[1], [[0, 0], [5, 0]])
-  t.deepEqual(sides[2], [[5, 0], [5, -5]])
+  t.deepEqual(sides[0], [[5, -5], [5, 0]])
+  t.deepEqual(sides[1], [[5, 0], [0, 0]])
+  t.deepEqual(sides[2], [[0, 0], [5, -5]])
 
   geom2 = geom1.rotate([0, 0, Math.PI / 2])
 
@@ -183,8 +199,8 @@ test('Geom2 (transform functions)', (t) => {
   sides = geom2.toSides()
   t.is(sides.length, 3)
   t.deepEqual(sides[0], [[-5, 5], [0, 0]])
-  t.deepEqual(sides[1], [[0, 0], [3.061616997868383e-16, 5]])
-  t.deepEqual(sides[2], [[3.061616997868383e-16, 5], [-5, 5]])
+  t.deepEqual(sides[1], [[0, 0], [0, 5]])
+  t.deepEqual(sides[2], [[0, 5], [-5, 5]])
 
   geom2 = geom1.scale([2, 0.5, 1])
 
@@ -196,6 +212,16 @@ test('Geom2 (transform functions)', (t) => {
   t.deepEqual(sides[1], [[0, 0], [10, 0]])
   t.deepEqual(sides[2], [[10, 0], [10, 2.5]])
 
+  geom2 = geom1.snap()
+
+  t.not(geom1, geom2)
+
+  sides = geom2.toSides()
+  t.is(sides.length, 3)
+  t.deepEqual(sides[0], [[5, 5], [0, 0]])
+  t.deepEqual(sides[1], [[0, 0], [5, 0]])
+  t.deepEqual(sides[2], [[5, 0], [5, 5]])
+
   geom2 = geom1.translate([-5, 5, 0])
 
   t.not(geom1, geom2)
@@ -205,6 +231,16 @@ test('Geom2 (transform functions)', (t) => {
   t.deepEqual(sides[0], [[0, 10], [-5, 5]])
   t.deepEqual(sides[1], [[-5, 5], [0, 5]])
   t.deepEqual(sides[2], [[0, 5], [0, 10]])
+
+  geom2 = geom1.transform(maths.mat4.fromScaling(maths.mat4.create(), [2, 2, 2]))
+
+  t.not(geom1, geom2)
+
+  sides = geom2.toSides()
+  t.is(sides.length, 3)
+  t.deepEqual(sides[0], [[10, 10], [0, 0]])
+  t.deepEqual(sides[1], [[0, 0], [10, 0]])
+  t.deepEqual(sides[2], [[10, 0], [10, 10]])
 })
 
 test('Geom2 (expand offset)', (t) => {
@@ -214,9 +250,9 @@ test('Geom2 (expand offset)', (t) => {
   t.not(geom1, geom2)
 
   let sides = geom2.toSides()
-  t.is(sides.length, 12)
-  t.deepEqual(sides[0], [[-4.5, -2.5], [-4.5, -4.5]])
-  t.deepEqual(sides[4], [[4.5, -4.5], [4.5, -2.5]])
+  t.is(sides.length, 4)
+  t.deepEqual(sides[0], [[-4.5, -4.5], [4.5, -4.5]])
+  t.deepEqual(sides[3], [[-4.5, 4.5], [-4.5, -4.5]])
 
   geom2 = geom1.expand({ delta: -1 }) // contract
 
@@ -240,13 +276,23 @@ test('Geom2 (conversions)', (t) => {
 
   t.is(outlines.length, 1)
 
-  let geom2 = geom.extrudeLinear()
-  let polygons = geom2.toPolygons()
+  let geom2 = geom.extrudeHelical({ pitch: 10 })
 
-  t.is(polygons.length, 10)
+  let polygons = geom2.toPolygons()
+  t.is(polygons.length, 260)
+
+  geom2 = geom.extrudeLinear()
+
+  polygons = geom2.toPolygons()
+  t.is(polygons.length, 12)
+
+  geom2 = geom.extrudeRectangular({ size: 2, height: 10 })
+
+  polygons = geom2.toPolygons()
+  t.is(polygons.length, 32)
 
   geom2 = geom.extrudeRotate()
-  polygons = geom2.toPolygons()
 
+  polygons = geom2.toPolygons()
   t.is(polygons.length, 96)
 })

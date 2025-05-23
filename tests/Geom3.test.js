@@ -1,6 +1,6 @@
 const test = require('ava')
 
-const { geometries } = require('@jscad/modeling')
+const { geometries, maths } = require('@jscad/modeling')
 
 const { Geom3 } = require('../src/index')
 
@@ -29,6 +29,44 @@ test('Geom3 (primitives)', (t) => {
   geom = Geom3.cuboid({ center: [5, 5, 5], size: [3, 5, 7] })
 
   t.is(geom.geometry.polygons.length, 6)
+
+  geom = Geom3.cylinder({ height: 2, radius: 10 })
+
+  t.is(geom.geometry.polygons.length, 96)
+
+  geom = Geom3.cylinderElliptic({ height: 2, startRadius: [10, 5], endRadius: [8, 3] })
+
+  t.is(geom.geometry.polygons.length, 128)
+
+  geom = Geom3.ellipsoid({ radius: [5, 10, 20] })
+
+  t.is(geom.geometry.polygons.length, 512)
+
+  geom = Geom3.geodesicSphere({ radius: 15, frequency: 18 })
+
+  t.is(geom.geometry.polygons.length, 180)
+
+  const points = [[-1, -1, -1], [-1, -1, 1], [-1, 1, 1]]
+  const faces = [[0, 1, 2]]
+  geom = Geom3.polyhedron({ points, faces })
+
+  t.is(geom.geometry.polygons.length, 1)
+
+  geom = Geom3.roundedCuboid({ size: [10, 20, 10], roundRadius: 2 })
+
+  t.is(geom.geometry.polygons.length, 614)
+
+  geom = Geom3.roundedCylinder({ height: 10, radius: 2, roundRadius: 0.5 })
+
+  t.is(geom.geometry.polygons.length, 544)
+
+  geom = Geom3.sphere({ radius: 5 })
+
+  t.is(geom.geometry.polygons.length, 512)
+
+  geom = Geom3.torus({ innerRadius: 10, outerRadius: 100 })
+
+  t.is(geom.geometry.polygons.length, 2048)
 })
 
 test('Geom3 (accessors)', (t) => {
@@ -47,6 +85,22 @@ test('Geom3 (measurements)', (t) => {
   const bounds = geom.measureBoundingBox()
 
   t.deepEqual(bounds, [[-1.5, -2.5, -3.5], [1.5, 2.5, 3.5]])
+
+  const sphere = geom.measureBoundingSphere()
+
+  t.deepEqual(sphere, [[0, 0, 0], 4.55521678957215])
+
+  const center = geom.measureCenter()
+
+  t.deepEqual(center, [0, 0, 0])
+
+  const mass = geom.measureCenterOfMass()
+
+  t.deepEqual(mass, [0, 0, 0])
+
+  const dimensions = geom.measureDimensions()
+
+  t.deepEqual(dimensions, [3, 5, 7])
 
   const epsilon = geom.measureEpsilon()
 
@@ -76,7 +130,7 @@ test('Geom3 (clone color)', (t) => {
 
 test('Geom3 (boolean functions)', (t) => {
   const geom1 = Geom3.cuboid({ center: [0, 0, 0], size: [5, 5, 5] })
-  let geom2 = Geom3.cuboid({ center: [2.5, 2.5, 2.5], size: [5, 5, 5] })
+  const geom2 = Geom3.cuboid({ center: [2.5, 2.5, 2.5], size: [5, 5, 5] })
 
   let geom3 = geom1.union(geom2)
 
@@ -102,7 +156,7 @@ test('Geom3 (boolean functions)', (t) => {
   polygons = geom3.toPolygons()
   t.is(polygons.length, 12)
 
-  let geometries = geom3.scission()
+  const geometries = geom3.scission()
   t.is(geometries.length, 1)
 
   polygons = geometries[0].toPolygons()
@@ -134,7 +188,7 @@ test('Geom3 (hull functions)', (t) => {
 })
 
 test('Geom3 (transform functions)', (t) => {
-  let geom1 = Geom3.cuboid({ center: [3, 5, 7], size: [3, 5, 7] })
+  const geom1 = Geom3.cuboid({ center: [3, 5, 7], size: [3, 5, 7] })
   let geom2 = geom1.center()
 
   t.not(geom1, geom2)
@@ -165,7 +219,7 @@ test('Geom3 (transform functions)', (t) => {
 
   polygons = geom2.toPolygons()
   t.is(polygons.length, 6)
-  t.deepEqual(polygons[0].vertices, [[-2.5, 1.5000000000000002, 3.5], [-2.5, 1.5000000000000002, 10.5], [-7.5, 1.5000000000000004, 10.5], [-7.5, 1.5000000000000004, 3.5]])
+  t.deepEqual(polygons[0].vertices, [[-2.5, 1.5, 3.5], [-2.5, 1.5, 10.5], [-7.5, 1.5, 10.5], [-7.5, 1.5, 3.5]])
 
   geom2 = geom1.scale([2, 0.5, 1])
 
@@ -175,6 +229,14 @@ test('Geom3 (transform functions)', (t) => {
   t.is(polygons.length, 6)
   t.deepEqual(polygons[0].vertices, [[3, 1.25, 3.5], [3, 1.25, 10.5], [3, 3.75, 10.5], [3, 3.75, 3.5]])
 
+  geom2 = geom1.snap()
+
+  t.not(geom1, geom2)
+
+  polygons = geom2.toPolygons()
+  t.is(polygons.length, 6)
+  t.deepEqual(polygons[0].vertices, [[1.5, 2.5, 3.5], [1.5, 2.5, 10.5], [1.5, 7.5, 10.5], [1.5, 7.5, 3.5]])
+
   geom2 = geom1.translate([-5, 5, -5])
 
   t.not(geom1, geom2)
@@ -182,6 +244,14 @@ test('Geom3 (transform functions)', (t) => {
   polygons = geom2.toPolygons()
   t.is(polygons.length, 6)
   t.deepEqual(polygons[0].vertices, [[-3.5, 7.5, -1.5], [-3.5, 7.5, 5.5], [-3.5, 12.5, 5.5], [-3.5, 12.5, -1.5]])
+
+  geom2 = geom1.transform(maths.mat4.fromScaling(maths.mat4.create(), [2, 2, 2]))
+
+  t.not(geom1, geom2)
+
+  polygons = geom2.toPolygons()
+  t.is(polygons.length, 6)
+  t.deepEqual(polygons[0].vertices, [[3, 5, 7], [3, 5, 21], [3, 15, 21], [3, 15, 7]])
 })
 
 test('Geom3 (project)', (t) => {

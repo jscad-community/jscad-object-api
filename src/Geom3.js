@@ -5,6 +5,9 @@ const jscad = require('@jscad/modeling')
  * Class Geom3
  * Holds a JSCAD 3D geometry consisting of a set of polygons.
  * @constructor
+ * @param {jscad.geometries.geom3} [geometry] a provided geometry
+ *
+ * @example
  */
 const Geom3 = function (geometry) {
   if (geometry === undefined) {
@@ -93,6 +96,22 @@ Geom3.prototype = {
     return jscad.measurements.measureBoundingBox(this.geometry)
   },
 
+  measureBoundingSphere: function () {
+    return jscad.measurements.measureBoundingSphere(this.geometry)
+  },
+
+  measureCenter: function () {
+    return jscad.measurements.measureCenter(this.geometry)
+  },
+
+  measureCenterOfMass: function () {
+    return jscad.measurements.measureCenterOfMass(this.geometry)
+  },
+
+  measureDimensions: function () {
+    return jscad.measurements.measureDimensions(this.geometry)
+  },
+
   measureEpsilon: function () {
     return jscad.measurements.measureEpsilon(this.geometry)
   },
@@ -130,6 +149,8 @@ Geom3.prototype = {
     return new Geom3(newgeometry)
   },
 
+  // TODO generalize
+
   invert: function () {
     const newgeometry = jscad.geometries.geom3.invert(this.geometry)
     return new Geom3(newgeometry)
@@ -142,6 +163,11 @@ Geom3.prototype = {
 
   rotate: function (angles) {
     const newgeometry = jscad.transforms.rotate(angles, this.geometry)
+    return new Geom3(newgeometry)
+  },
+
+  snap: function () {
+    const newgeometry = jscad.modifiers.snap(this.geometry)
     return new Geom3(newgeometry)
   },
 
