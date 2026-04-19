@@ -158,13 +158,13 @@ test('Path2 (hull functions)', (t) => {
   const path2 = Path2.fromPoints([[5, 5], [6, 6], [5, 6]])
   const path3 = Path2.fromPoints([[-5, 5], [-4, 6], [-5, 6]])
 
-  let hulled = path1.hull(path2, path3)
+  const hulled = path1.hull(path2, path3)
 
   t.not(path1, hulled)
   t.not(path1, hulled)
   t.not(path2, hulled)
 
-  let points = hulled.toPoints()
+  const points = hulled.toPoints()
   t.is(points.length, 4)
 })
 
@@ -274,14 +274,14 @@ test('Path2 (offset)', (t) => {
 test('Path2 (conversions)', (t) => {
   const path1 = Path2.fromPoints([[0, 0], [10, 10], [0, 10]])
 
-  let geoms2 = path1.offset({ delta: 2 })
+  const geoms2 = path1.offset({ delta: 2 })
 
   const sides = geoms2.toSides()
   t.is(sides.length, 6)
 
   const path2 = Path2.fromPoints([[0, 0], [10, 10], [0, 10], [0, 0]])
   const geom3 = path2.extrudeLinear()
-  let polygons = geom3.toPolygons()
+  const polygons = geom3.toPolygons()
 
   t.is(polygons.length, 8)
 })

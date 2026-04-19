@@ -3,7 +3,7 @@ import { geom3, cylinder, cylinderElliptic, cube, cuboid, ellipsoid, geodesicSph
 import { center, hull, hullChain, intersect, mirror, offset, project, rotate, scale, scission, snap, subtract, translate, union } from '@jscad/modeling'
 import { colorize, colorNameToRgb, measureArea, measureBoundingBox, measureBoundingSphere, measureCenter, measureCenterOfMass, measureDimensions, measureEpsilon, measureVolume, flatten } from '@jscad/modeling'
 
-import { Geom2 } from "./Geom2.js"
+import { Geom2 } from './Geom2.js'
 
 /**
  * Class Geom3
@@ -86,7 +86,7 @@ export class Geom3 {
   //
   // accessors
   //
-  toPolygons() {
+  toPolygons () {
     return geom3.toPolygons(this.geometry)
   }
 
@@ -273,9 +273,11 @@ export class Geom3 {
   centerX () {
     return this.center({ axes: [true, false, false] })
   }
+
   centerY () {
     return this.center({ axes: [false, true, false] })
   }
+
   centerZ () {
     return this.center({ axes: [false, false, true] })
   }
@@ -283,9 +285,11 @@ export class Geom3 {
   mirrorX () {
     return this.mirror({ normal: [1, 0, 0] })
   }
+
   mirrorY () {
     return this.mirror({ normal: [0, 1, 0] })
   }
+
   mirrorZ () {
     return this.mirror({ normal: [0, 0, 1] })
   }
@@ -293,9 +297,11 @@ export class Geom3 {
   rotateX (angle) {
     return this.rotate([angle, 0, 0])
   }
+
   rotateY (angle) {
     return this.rotate([0, angle, 0])
   }
+
   rotateZ (angle) {
     return this.rotate([0, 0, angle])
   }
@@ -303,9 +309,11 @@ export class Geom3 {
   scaleX (factor) {
     return this.scale([factor, 1, 1])
   }
+
   scaleY (factor) {
     return this.scale([1, factor, 1])
   }
+
   scaleZ (factor) {
     return this.scale([1, 1, factor])
   }
@@ -313,9 +321,11 @@ export class Geom3 {
   translateX (offset) {
     return this.translate([offset, 0, 0])
   }
+
   translateY (offset) {
     return this.translate([0, offset, 0])
   }
+
   translateZ (offset) {
     return this.translate([0, 0, offset])
   }

@@ -9,7 +9,7 @@ test('Geom2 (constructor)', (t) => {
 
   t.is(geom.geometry.outlines.length, 0)
 
-  const newgeometry = geom2.create([ [[0, 0], [1, 1], [0, 1]] ])
+  const newgeometry = geom2.create([[[0, 0], [1, 1], [0, 1]]])
   geom = new Geom2(newgeometry)
 
   t.is(geom.geometry.outlines.length, 1)
@@ -246,14 +246,14 @@ test('Geom2 (transform functions)', (t) => {
 
 test('Geom2 (offset)', (t) => {
   const geom1 = Geom2.square({ size: 5 })
-  let geom2 = geom1.offset({ delta: 2 })
+  const geom2 = geom1.offset({ delta: 2 })
 
   t.not(geom1, geom2)
 
-  let sides = geom2.toSides()
+  const sides = geom2.toSides()
   t.is(sides.length, 4)
-  t.deepEqual(sides[0], [ [ 4.5, -4.5 ], [ 4.5, 4.5 ] ])
-  t.deepEqual(sides[3], [ [ -4.5, -4.5 ], [ 4.5, -4.5 ] ])
+  t.deepEqual(sides[0], [[4.5, -4.5], [4.5, 4.5]])
+  t.deepEqual(sides[3], [[-4.5, -4.5], [4.5, -4.5]])
 })
 
 test('Geom2 (conversions)', (t) => {

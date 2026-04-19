@@ -14,7 +14,7 @@ export default {
       format: 'umd',
       name: 'jscad-object-api',
       banner: `/*! ${name} V${version} (${license}) */`,
-      globals: { "@jscad/modeling": "jscadModeling"}
+      globals: { '@jscad/modeling': 'jscadModeling' }
     },
     {
       file: 'dist/jscad-object-api.es.js',

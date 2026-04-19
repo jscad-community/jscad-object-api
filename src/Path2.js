@@ -1,7 +1,7 @@
 // the REAL application interface
 import { path2, flatten, colorNameToRgb } from '@jscad/modeling'
 import { arc, line, extrudeLinear } from '@jscad/modeling'
-import { center, colorize, hull, hullChain, mirror, offset, rotate, scale, snap, translate, transform, union } from '@jscad/modeling'
+import { center, colorize, hull, mirror, offset, rotate, scale, snap, translate, transform } from '@jscad/modeling'
 import { measureBoundingBox, measureBoundingSphere, measureCenter, measureCenterOfMass, measureDimensions, measureEpsilon } from '@jscad/modeling'
 
 import { Geom2 } from './Geom2.js'
@@ -176,7 +176,7 @@ export class Path2 {
   }
 
   transform (matrix) {
-    const newpath = path2.transform(matrix, this.geometry)
+    const newpath = transform(matrix, this.geometry)
     return new Path2(newpath)
   }
 
@@ -225,9 +225,11 @@ export class Path2 {
   centerX () {
     return this.center({ axes: [true, false, false] })
   }
+
   centerY () {
     return this.center({ axes: [false, true, false] })
   }
+
   centerZ () {
     return this.center({ axes: [false, false, true] })
   }
@@ -235,9 +237,11 @@ export class Path2 {
   mirrorX () {
     return this.mirror({ normal: [1, 0, 0] })
   }
+
   mirrorY () {
     return this.mirror({ normal: [0, 1, 0] })
   }
+
   mirrorZ () {
     return this.mirror({ normal: [0, 0, 1] })
   }
@@ -245,9 +249,11 @@ export class Path2 {
   rotateX (angle) {
     return this.rotate([angle, 0, 0])
   }
+
   rotateY (angle) {
     return this.rotate([0, angle, 0])
   }
+
   rotateZ (angle) {
     return this.rotate([0, 0, angle])
   }
@@ -255,9 +261,11 @@ export class Path2 {
   scaleX (factor) {
     return this.scale([factor, 1, 1])
   }
+
   scaleY (factor) {
     return this.scale([1, factor, 1])
   }
+
   scaleZ (factor) {
     return this.scale([1, 1, factor])
   }
@@ -265,9 +273,11 @@ export class Path2 {
   translateX (offset) {
     return this.translate([offset, 0, 0])
   }
+
   translateY (offset) {
     return this.translate([0, offset, 0])
   }
+
   translateZ (offset) {
     return this.translate([0, 0, offset])
   }

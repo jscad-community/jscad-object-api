@@ -1,7 +1,7 @@
 // the REAL application interface
 import { geom2, circle, ellipse, polygon, rectangle, roundedRectangle, square, star } from '@jscad/modeling'
 import { flatten, center, colorNameToRgb, colorize, extrudeHelical, extrudeLinear, extrudeRotate, hull, hullChain, intersect, mirror, offset, rotate, scale, snap, subtract, translate, transform, union } from '@jscad/modeling'
-import { measureArea, measureBoundingBox, measureBoundingSphere, measureCenter, measureCenterOfMass, measureDimensions, measureEpsilon, measureVolume } from '@jscad/modeling'
+import { measureArea, measureBoundingBox, measureBoundingSphere, measureCenter, measureCenterOfMass, measureDimensions, measureEpsilon } from '@jscad/modeling'
 
 import { Geom3 } from './Geom3.js'
 
@@ -266,9 +266,11 @@ export class Geom2 {
   centerX () {
     return this.center({ axes: [true, false, false] })
   }
+
   centerY () {
     return this.center({ axes: [false, true, false] })
   }
+
   centerZ () {
     return this.center({ axes: [false, false, true] })
   }
@@ -276,9 +278,11 @@ export class Geom2 {
   mirrorX () {
     return this.mirror({ normal: [1, 0, 0] })
   }
+
   mirrorY () {
     return this.mirror({ normal: [0, 1, 0] })
   }
+
   mirrorZ () {
     return this.mirror({ normal: [0, 0, 1] })
   }
@@ -286,9 +290,11 @@ export class Geom2 {
   rotateX (angle) {
     return this.rotate([angle, 0, 0])
   }
+
   rotateY (angle) {
     return this.rotate([0, angle, 0])
   }
+
   rotateZ (angle) {
     return this.rotate([0, 0, angle])
   }
@@ -296,9 +302,11 @@ export class Geom2 {
   scaleX (factor) {
     return this.scale([factor, 1, 1])
   }
+
   scaleY (factor) {
     return this.scale([1, factor, 1])
   }
+
   scaleZ (factor) {
     return this.scale([1, 1, factor])
   }
@@ -306,9 +314,11 @@ export class Geom2 {
   translateX (offset) {
     return this.translate([offset, 0, 0])
   }
+
   translateY (offset) {
     return this.translate([0, offset, 0])
   }
+
   translateZ (offset) {
     return this.translate([0, 0, offset])
   }
