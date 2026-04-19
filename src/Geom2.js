@@ -10,12 +10,19 @@ import { Geom3 } from './Geom3.js'
  *
  * Holds a JSCAD 2D geometry consisting of a number of sides.
  * Each side is a line segment as defined by two points.
- * @constructor
- * @param {geom2} [geometry] a provided geometry
  *
  * @example
+ * const ashape = Geom2.square()
+ * const bshape = Geom2.square({size: 10})
+ * const cshape = ashape.translateY(5).extrudeLinear({height: 250})
+ *
+ * @alias module:jscad-object-api.Geom2
  */
 export class Geom2 {
+  /**
+   * Create a new Geom2 from the given geometry
+   * @param {geom2} [geometry] a JSCAD geom2 geometry
+   */
   constructor (geometry) {
     if (geometry === undefined) {
       this.geometry = geom2.create()
@@ -29,6 +36,11 @@ export class Geom2 {
     return new Geom2(newgeom)
   }
 
+  /**
+   * Create a circle using the given options.
+   * @return {Geom2} new geometry
+   * @alias module:jscad-object-api.Geom2.circle
+   */
   static circle (options) {
     const newgeom = circle(options)
     return new Geom2(newgeom)
@@ -67,6 +79,12 @@ export class Geom2 {
   //
   // accessors
   //
+
+  /**
+   * Return the sides
+   * @return {Array} list of sides
+   * @alias module:jscad-object-api.Geom2.toSides
+   */
   toSides () {
     return geom2.toSides(this.geometry)
   }

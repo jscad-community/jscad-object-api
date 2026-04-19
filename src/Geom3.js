@@ -13,6 +13,9 @@ import { Geom2 } from './Geom2.js'
  * @param {geom3} [geometry] a provided geometry
  *
  * @example
+ * const ashape = Geom3.cylinder()
+ * const bshape = Geom3.cylinder({height: 2, radius: 10})
+ * const cshare = bshape.translate([3, 2, 1])
  */
 export class Geom3 {
   constructor (geometry) {
