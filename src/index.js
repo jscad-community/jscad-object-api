@@ -1,5 +1,3 @@
-module.exports = {
-  Geom2: require('./Geom2'),
-  Geom3: require('./Geom3'),
-  Path2: require('./Path2')
-}
+export { Geom2 } from './Geom2.js'
+export { Geom3 } from './Geom3.js'
+export { Path2 } from './Path2.js'
