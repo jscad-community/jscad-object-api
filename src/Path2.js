@@ -8,13 +8,19 @@ import { Geom2 } from './Geom2.js'
 import { Geom3 } from './Geom3.js'
 
 /**
+ * @module path2
+ */
+
+/**
  * Class Path2
- * Holds a JSCAD path geometry consisting of a set of points.
+ *
+ * Holds a JSCAD path2 geometry consisting of an ordered set of points.
  * A path can be open or closed, i.e. the start and end are the same.
- * @constructor
  * @param {path2} [geometry] a provided geometry
  *
  * @example
+ * import { Path2 } from "jscad-object-api"
+ *
  * let path1 = Path2.fromPoints([[10,10], [-10,10], [-10,-10], [10,-10]], true) // closed
  * let path2 = Part2.arc({
  *   center: [5, 5],
@@ -34,16 +40,25 @@ export class Path2 {
     }
   }
 
+  /**
+   * @return {Path2} new geometry
+   */
   static fromPoints (points, closed) {
     const newpath = path2.fromPoints({ closed: closed }, points)
     return new Path2(newpath)
   }
 
+  /**
+   * @return {Path2} new geometry
+   */
   static arc (options) {
     const newpath = arc(options)
     return new Path2(newpath)
   }
 
+  /**
+   * @return {Path2} new geometry
+   */
   static line (options) {
     const newpath = line(options)
     return new Path2(newpath)
@@ -56,7 +71,9 @@ export class Path2 {
     return this.geometry.isClosed
   }
 
-  // DO NOT MODIFY THE POINTS!
+  /**
+   * @return {Array} list of points
+   */
   toPoints () {
     return path2.toPoints(this.geometry)
   }

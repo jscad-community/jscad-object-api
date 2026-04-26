@@ -6,13 +6,18 @@ import { colorize, colorNameToRgb, measureArea, measureBoundingBox, measureBound
 import { Geom2 } from './Geom2.js'
 
 /**
+ * @module geom3
+ */
+
+/**
  * Class Geom3
  *
  * Holds a JSCAD 3D geometry consisting of a set of polygons.
- * @constructor
  * @param {geom3} [geometry] a provided geometry
  *
  * @example
+ * import { Geom3 } from "jscad-object-api"
+ *
  * const ashape = Geom3.cylinder()
  * const bshape = Geom3.cylinder({height: 2, radius: 10})
  * const cshare = bshape.translate([3, 2, 1])
@@ -26,61 +31,97 @@ export class Geom3 {
     }
   }
 
+  /**
+   * @return {Geom3} new geometry
+   */
   static fromVertices (vertices) {
     const newgeom = geom3.fromVertices(vertices)
     return new Geom3(newgeom)
   }
 
+  /**
+   * @return {Geom3} new geometry
+   */
   static cube (options) {
     const newgeom = cube(options)
     return new Geom3(newgeom)
   }
 
+  /**
+   * @return {Geom3} new geometry
+   */
   static cuboid (options) {
     const newgeom = cuboid(options)
     return new Geom3(newgeom)
   }
 
+  /**
+   * @return {Geom3} new geometry
+   */
   static cylinder (options) {
     const newgeom = cylinder(options)
     return new Geom3(newgeom)
   }
 
+  /**
+   * @return {Geom3} new geometry
+   */
   static cylinderElliptic (options) {
     const newgeom = cylinderElliptic(options)
     return new Geom3(newgeom)
   }
 
+  /**
+   * @return {Geom3} new geometry
+   */
   static ellipsoid (options) {
     const newgeom = ellipsoid(options)
     return new Geom3(newgeom)
   }
 
+  /**
+   * @return {Geom3} new geometry
+   */
   static geodesicSphere (options) {
     const newgeom = geodesicSphere(options)
     return new Geom3(newgeom)
   }
 
+  /**
+   * @return {Geom3} new geometry
+   */
   static polyhedron (options) {
     const newgeom = polyhedron(options)
     return new Geom3(newgeom)
   }
 
+  /**
+   * @return {Geom3} new geometry
+   */
   static roundedCuboid (options) {
     const newgeom = roundedCuboid(options)
     return new Geom3(newgeom)
   }
 
+  /**
+   * @return {Geom3} new geometry
+   */
   static roundedCylinder (options) {
     const newgeom = roundedCylinder(options)
     return new Geom3(newgeom)
   }
 
+  /**
+   * @return {Geom3} new geometry
+   */
   static sphere (options) {
     const newgeom = sphere(options)
     return new Geom3(newgeom)
   }
 
+  /**
+   * @return {Geom3} new geometry
+   */
   static torus (options) {
     const newgeom = torus(options)
     return new Geom3(newgeom)
@@ -89,6 +130,10 @@ export class Geom3 {
   //
   // accessors
   //
+
+  /**
+   * @return {Array} list of polygons
+   */
   toPolygons () {
     return geom3.toPolygons(this.geometry)
   }

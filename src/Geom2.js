@@ -6,17 +6,21 @@ import { measureArea, measureBoundingBox, measureBoundingSphere, measureCenter, 
 import { Geom3 } from './Geom3.js'
 
 /**
+ * @module geom2
+ */
+
+/**
  * Class Geom2
  *
- * Holds a JSCAD 2D geometry consisting of a number of sides.
- * Each side is a line segment as defined by two points.
+ * Holds a JSCAD 2D geometry (geom2) that
+ * represents a 2D geometry consisting of outlines, where each outline is an ordered list of points.
  *
  * @example
+ * import { Geom2 } from "jscad-object-api"
+ *
  * const ashape = Geom2.square()
  * const bshape = Geom2.square({size: 10})
  * const cshape = ashape.translateY(5).extrudeLinear({height: 250})
- *
- * @alias module:jscad-object-api.Geom2
  */
 export class Geom2 {
   /**
@@ -31,6 +35,9 @@ export class Geom2 {
     }
   }
 
+  /**
+   * @return {Geom2} new geometry
+   */
   static fromPoints (points) {
     const newgeom = geom2.create([points])
     return new Geom2(newgeom)
@@ -39,7 +46,6 @@ export class Geom2 {
   /**
    * Create a circle using the given options.
    * @return {Geom2} new geometry
-   * @alias module:jscad-object-api.Geom2.circle
    */
   static circle (options) {
     const newgeom = circle(options)
@@ -83,7 +89,6 @@ export class Geom2 {
   /**
    * Return the sides
    * @return {Array} list of sides
-   * @alias module:jscad-object-api.Geom2.toSides
    */
   toSides () {
     return geom2.toSides(this.geometry)
@@ -92,6 +97,9 @@ export class Geom2 {
   //
   // measurement methods
   //
+  /**
+   * @return {Float}
+   */
   measureArea () {
     return measureArea(this.geometry)
   }

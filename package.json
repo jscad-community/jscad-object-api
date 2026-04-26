@@ -15,7 +15,7 @@
     "coverage": "c8 --all --reporter=html --reporter=text npm run tests",
     "tests": "ava 'tests/*.test.js' --verbose --timeout 2m",
     "lint": "standardx './**/*.js'",
-    "docs": "jsdoc2md --files 'src/*.js' | grep -v 'a name' > README.md"
+    "docs": "jsdoc2md --files 'src/*.js' > README.md"
   },
   "keywords": [
     "object",
