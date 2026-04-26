@@ -1,14 +1,26 @@
 // the REAL application interface
-const jscad = require('@jscad/modeling')
+import { path2, flatten, colorNameToRgb } from '@jscad/modeling'
+import { arc, line, extrudeLinear } from '@jscad/modeling'
+import { center, colorize, hull, mirror, offset, rotate, scale, snap, translate, transform } from '@jscad/modeling'
+import { measureBoundingBox, measureBoundingSphere, measureCenter, measureCenterOfMass, measureDimensions, measureEpsilon } from '@jscad/modeling'
+
+import { Geom2 } from './Geom2.js'
+import { Geom3 } from './Geom3.js'
+
+/**
+ * @module path2
+ */
 
 /**
  * Class Path2
- * Holds a JSCAD path geometry consisting of a set of points.
+ *
+ * Holds a JSCAD path2 geometry consisting of an ordered set of points.
  * A path can be open or closed, i.e. the start and end are the same.
- * @constructor
- * @param {jscad.geometries.path2} [geometry] a provided geometry
+ * @param {path2} [geometry] a provided geometry
  *
  * @example
+ * import { Path2 } from "jscad-object-api"
+ *
  * let path1 = Path2.fromPoints([[10,10], [-10,10], [-10,-10], [10,-10]], true) // closed
  * let path2 = Part2.arc({
  *   center: [5, 5],
@@ -19,270 +31,271 @@ const jscad = require('@jscad/modeling')
  * })
  * let path3 = path1.concat(path2)
  */
-const Path2 = function (geometry) {
-  if (geometry === undefined) {
-    this.geometry = jscad.geometries.path2.create()
-  } else {
-    this.geometry = geometry
+export class Path2 {
+  constructor (geometry) {
+    if (geometry === undefined) {
+      this.geometry = path2.create()
+    } else {
+      this.geometry = geometry
+    }
   }
-}
 
-Path2.fromPoints = function (points, closed) {
-  const newpath = jscad.geometries.path2.fromPoints({ closed: closed }, points)
-  return new Path2(newpath)
-}
+  /**
+   * @return {Path2} new geometry
+   */
+  static fromPoints (points, closed) {
+    const newpath = path2.fromPoints({ closed: closed }, points)
+    return new Path2(newpath)
+  }
 
-Path2.arc = function (options) {
-  const newpath = jscad.primitives.arc(options)
-  return new Path2(newpath)
-}
+  /**
+   * @return {Path2} new geometry
+   */
+  static arc (options) {
+    const newpath = arc(options)
+    return new Path2(newpath)
+  }
 
-Path2.line = function (options) {
-  const newpath = jscad.primitives.line(options)
-  return new Path2(newpath)
-}
+  /**
+   * @return {Path2} new geometry
+   */
+  static line (options) {
+    const newpath = line(options)
+    return new Path2(newpath)
+  }
 
-Path2.prototype = {
   //
   // accessor methods
   //
-  isClosed: function () {
+  isClosed () {
     return this.geometry.isClosed
-  },
+  }
 
-  // DO NOT MODIFY THE POINTS!
-  toPoints: function () {
-    return jscad.geometries.path2.toPoints(this.geometry)
-  },
+  /**
+   * @return {Array} list of points
+   */
+  toPoints () {
+    return path2.toPoints(this.geometry)
+  }
 
   //
   // measurements
   //
-  measureArea: function () {
+  measureArea () {
     return 0 // none
-  },
+  }
 
-  measureBoundingBox: function () {
-    return jscad.measurements.measureBoundingBox(this.geometry)
-  },
+  measureBoundingBox () {
+    return measureBoundingBox(this.geometry)
+  }
 
-  measureBoundingSphere: function () {
-    return jscad.measurements.measureBoundingSphere(this.geometry)
-  },
+  measureBoundingSphere () {
+    return measureBoundingSphere(this.geometry)
+  }
 
-  measureCenter: function () {
-    return jscad.measurements.measureCenter(this.geometry)
-  },
+  measureCenter () {
+    return measureCenter(this.geometry)
+  }
 
-  measureCenterOfMass: function () {
-    return jscad.measurements.measureCenterOfMass(this.geometry)
-  },
+  measureCenterOfMass () {
+    return measureCenterOfMass(this.geometry)
+  }
 
-  measureDimensions: function () {
-    return jscad.measurements.measureDimensions(this.geometry)
-  },
+  measureDimensions () {
+    return measureDimensions(this.geometry)
+  }
 
-  measureEpsilon: function () {
-    return jscad.measurements.measureEpsilon(this.geometry)
-  },
+  measureEpsilon () {
+    return measureEpsilon(this.geometry)
+  }
 
-  measureVolume: function () {
+  measureVolume () {
     return 0 // none
-  },
+  }
 
   //
   // producer methods, i.e. methods that produce new Path2 instances
   //
-  align: function (options) {
-    const newgeom = jscad.transforms.align(options, this.geometry)
-    return new Path2(newgeom)
-  },
-
-  appendArc: function (options) {
-    const newpath = jscad.geometries.path2.appendArc(options, this.geometry)
+  appendArc (options) {
+    const newpath = path2.appendArc(options, this.geometry)
     return new Path2(newpath)
-  },
+  }
 
-  appendBezier: function (options) {
-    const newpath = jscad.geometries.path2.appendBezier(options, this.geometry)
+  appendBezier (options) {
+    const newpath = path2.appendBezier(options, this.geometry)
     return new Path2(newpath)
-  },
+  }
 
-  appendPoint: function (point) {
+  appendPoint (point) {
     return this.appendPoints([point])
-  },
+  }
 
-  appendPoints: function (points) {
-    const newpath = jscad.geometries.path2.appendPoints(points, this.geometry)
+  appendPoints (points) {
+    const newpath = path2.appendPoints(points, this.geometry)
     return new Path2(newpath)
-  },
+  }
 
-  center: function (options) {
-    const newgeom = jscad.transforms.center(options, this.geometry)
+  center (options) {
+    const newgeom = center(options, this.geometry)
     return new Path2(newgeom)
-  },
+  }
 
-  clone: function () {
-    const newpath = jscad.geometries.path2.clone(this.geometry)
+  clone () {
+    const newpath = path2.clone(this.geometry)
     return new Path2(newpath)
-  },
+  }
 
-  close: function () {
-    const newpath = jscad.geometries.path2.close(this.geometry)
+  close () {
+    const newpath = path2.close(this.geometry)
     return new Path2(newpath)
-  },
+  }
 
-  colorize: function (colorspec) {
-    if (!Array.isArray(colorspec)) colorspec = jscad.colors.colorNameToRgb(colorspec)
-    const newpath = jscad.colors.colorize(colorspec, this.geometry)
+  colorize (colorspec) {
+    if (!Array.isArray(colorspec)) colorspec = colorNameToRgb(colorspec)
+    const newpath = colorize(colorspec, this.geometry)
     return new Path2(newpath)
-  },
+  }
 
-  concat: function (otherpath) {
-    const newpath = jscad.geometries.path2.concat(this.geometry, otherpath.geometry)
+  concat (otherpath) {
+    const newpath = path2.concat(this.geometry, otherpath.geometry)
     return new Path2(newpath)
-  },
+  }
 
-  mirror: function (options) {
-    const newgeom = jscad.transforms.mirror(options, this.geometry)
+  mirror (options) {
+    const newgeom = mirror(options, this.geometry)
     return new Path2(newgeom)
-  },
+  }
 
-  offset: function (options) {
-    const newgeom = jscad.expansions.offset(options, this.geometry)
+  offset (options) {
+    // NOTE: offset returns geom2
+    const newgeom = offset(options, this.geometry)
+    return new Geom2(newgeom)
+  }
+
+  reverse () {
+    const newgeom = path2.reverse(this.geometry)
     return new Path2(newgeom)
-  },
+  }
 
-  reverse: function () {
-    const newgeom = jscad.geometries.path2.reverse(this.geometry)
+  rotate (angles) {
+    const newgeom = rotate(angles, this.geometry)
     return new Path2(newgeom)
-  },
+  }
 
-  rotate: function (angles) {
-    const newgeom = jscad.transforms.rotate(angles, this.geometry)
+  scale (factors) {
+    const newgeom = scale(factors, this.geometry)
     return new Path2(newgeom)
-  },
+  }
 
-  scale: function (factors) {
-    const newgeom = jscad.transforms.scale(factors, this.geometry)
-    return new Path2(newgeom)
-  },
-
-  snap: function () {
-    const newgeometry = jscad.modifiers.snap(this.geometry)
+  snap () {
+    const newgeometry = snap(this.geometry)
     return new Path2(newgeometry)
-  },
+  }
 
-  transform: function (matrix) {
-    const newpath = jscad.geometries.path2.transform(matrix, this.geometry)
+  transform (matrix) {
+    const newpath = transform(matrix, this.geometry)
     return new Path2(newpath)
-  },
+  }
 
-  translate: function (offsets) {
-    const newgeom = jscad.transforms.translate(offsets, this.geometry)
+  translate (offsets) {
+    const newgeom = translate(offsets, this.geometry)
     return new Path2(newgeom)
-  },
+  }
+
+  // TODO
+  // align (...objects) {
+  //   const newgeom = align(options, this.geometry)
+  //   return new Path2(newgeom)
+  // }
 
   //
   // hull methods
   //
-  hull: function (...objects) {
-    objects = jscad.utils.flatten(objects)
+  hull (...objects) {
+    objects = flatten(objects)
     const geometries = [this.geometry]
     objects.forEach((object) => {
       geometries.push(object.geometry)
     })
-    const result = jscad.hulls.hull(geometries)
+    const result = hull(geometries)
     return new Path2(result)
-  },
-
-  hullChain: function (...objects) {
-    objects = jscad.utils.flatten(objects)
-    const geometries = [this.geometry]
-    objects.forEach((object) => {
-      geometries.push(object.geometry)
-    })
-    const result = jscad.hulls.hullChain(geometries)
-    return new Path2(result)
-  },
+  }
 
   //
   // conversion methods
   //
-  toString: function () {
-    return `Path2: ${jscad.geometries.path2.toString(this.geometry)}`
-  },
+  toString () {
+    return `Path2: ${path2.toString(this.geometry)}`
+  }
 
-  extrudeLinear: function (options) {
-    const newgeometry = jscad.extrusions.extrudeLinear(options, this.geometry)
-    const Geom3 = require('./Geom3')
+  //
+  // extrusion methods
+  //
+  extrudeLinear (options) {
+    const newgeometry = extrudeLinear(options, this.geometry)
     return new Geom3(newgeometry)
-  },
-
-  extrudeRectangular: function (options) {
-    const newgeom3 = jscad.extrusions.extrudeRectangular(options, this.geometry)
-    const Geom3 = require('./Geom3')
-    return new Geom3(newgeom3)
-  },
-
-  expand: function (options) {
-    const newgeom2 = jscad.expansions.expand(options, this.geometry)
-    const Geom2 = require('./Geom2')
-    return new Geom2(newgeom2)
-  },
+  }
 
   //
   // helper methods
   //
-  centerX: function () {
+  centerX () {
     return this.center({ axes: [true, false, false] })
-  },
-  centerY: function () {
+  }
+
+  centerY () {
     return this.center({ axes: [false, true, false] })
-  },
-  centerZ: function () {
+  }
+
+  centerZ () {
     return this.center({ axes: [false, false, true] })
-  },
+  }
 
-  mirrorX: function () {
+  mirrorX () {
     return this.mirror({ normal: [1, 0, 0] })
-  },
-  mirrorY: function () {
+  }
+
+  mirrorY () {
     return this.mirror({ normal: [0, 1, 0] })
-  },
-  mirrorZ: function () {
+  }
+
+  mirrorZ () {
     return this.mirror({ normal: [0, 0, 1] })
-  },
+  }
 
-  rotateX: function (angle) {
+  rotateX (angle) {
     return this.rotate([angle, 0, 0])
-  },
-  rotateY: function (angle) {
+  }
+
+  rotateY (angle) {
     return this.rotate([0, angle, 0])
-  },
-  rotateZ: function (angle) {
+  }
+
+  rotateZ (angle) {
     return this.rotate([0, 0, angle])
-  },
+  }
 
-  scaleX: function (factor) {
+  scaleX (factor) {
     return this.scale([factor, 1, 1])
-  },
-  scaleY: function (factor) {
-    return this.scale([1, factor, 1])
-  },
-  scaleZ: function (factor) {
-    return this.scale([1, 1, factor])
-  },
+  }
 
-  translateX: function (offset) {
+  scaleY (factor) {
+    return this.scale([1, factor, 1])
+  }
+
+  scaleZ (factor) {
+    return this.scale([1, 1, factor])
+  }
+
+  translateX (offset) {
     return this.translate([offset, 0, 0])
-  },
-  translateY: function (offset) {
+  }
+
+  translateY (offset) {
     return this.translate([0, offset, 0])
-  },
-  translateZ: function (offset) {
+  }
+
+  translateZ (offset) {
     return this.translate([0, 0, offset])
   }
 }
-
-module.exports = Path2

@@ -1,22 +1,22 @@
-const test = require('ava')
+import test from 'ava'
 
-const { geometries, maths } = require('@jscad/modeling')
+import { geom3, mat4 } from '@jscad/modeling'
 
-const { Geom3 } = require('../src/index')
+import { Geom3 } from '../src/index.js'
 
 test('Geom3 (constructor)', (t) => {
   let geom = new Geom3()
 
   t.is(geom.geometry.polygons.length, 0)
 
-  const newgeometry = geometries.geom3.fromPoints([[[0, 0, 0], [1, 0, 0], [1, 0, 1]]])
+  const newgeometry = geom3.fromVertices([[[0, 0, 0], [1, 0, 0], [1, 0, 1]]])
   geom = new Geom3(newgeometry)
 
   t.is(geom.geometry.polygons.length, 1)
 })
 
-test('Geom3.fromPoints()', (t) => {
-  const geom = Geom3.fromPoints([[[0, 0, 0], [1, 0, 0], [1, 0, 1]]])
+test('Geom3.fromVertices()', (t) => {
+  const geom = Geom3.fromVertices([[[0, 0, 0], [1, 0, 0], [1, 0, 1]]])
 
   t.is(geom.geometry.polygons.length, 1)
 })
@@ -245,7 +245,7 @@ test('Geom3 (transform functions)', (t) => {
   t.is(polygons.length, 6)
   t.deepEqual(polygons[0].vertices, [[-3.5, 7.5, -1.5], [-3.5, 7.5, 5.5], [-3.5, 12.5, 5.5], [-3.5, 12.5, -1.5]])
 
-  geom2 = geom1.transform(maths.mat4.fromScaling(maths.mat4.create(), [2, 2, 2]))
+  geom2 = geom1.transform(mat4.fromScaling(mat4.create(), [2, 2, 2]))
 
   t.not(geom1, geom2)
 
@@ -265,9 +265,9 @@ test('Geom3 (project)', (t) => {
   t.is(sides.length, 4)
 })
 
-test('Geom3 (expand)', (t) => {
+test('Geom3 (offset)', (t) => {
   const geom1 = Geom3.cube({ size: 5 })
-  const geom2 = geom1.expand({ delta: 2 })
+  const geom2 = geom1.offset({ delta: 2 })
 
   t.not(geom1, geom2)
 

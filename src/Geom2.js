@@ -1,318 +1,351 @@
 // the REAL application interface
-const jscad = require('@jscad/modeling')
+import { geom2, circle, ellipse, polygon, rectangle, roundedRectangle, square, star } from '@jscad/modeling'
+import { flatten, center, colorNameToRgb, colorize, extrudeHelical, extrudeLinear, extrudeRotate, hull, hullChain, intersect, mirror, offset, rotate, scale, snap, subtract, translate, transform, union } from '@jscad/modeling'
+import { measureArea, measureBoundingBox, measureBoundingSphere, measureCenter, measureCenterOfMass, measureDimensions, measureEpsilon } from '@jscad/modeling'
+
+import { Geom3 } from './Geom3.js'
+
+/**
+ * @module geom2
+ */
 
 /**
  * Class Geom2
- * Holds a JSCAD 2D geometry consisting of a number of sides.
- * Each side is a line segment as defined by two points.
- * @constructor
- * @param {jscad.geometries.geom2} [geometry] a provided geometry
+ *
+ * Holds a JSCAD 2D geometry (geom2) that
+ * represents a 2D geometry consisting of outlines, where each outline is an ordered list of points.
  *
  * @example
+ * import { Geom2 } from "jscad-object-api"
+ *
+ * const ashape = Geom2.square()
+ * const bshape = Geom2.square({size: 10})
+ * const cshape = ashape.translateY(5).extrudeLinear({height: 250})
  */
-const Geom2 = function (geometry) {
-  if (geometry === undefined) {
-    this.geometry = jscad.geometries.geom2.create()
-  } else {
-    this.geometry = geometry
+export class Geom2 {
+  /**
+   * Create a new Geom2 from the given geometry
+   * @param {geom2} [geometry] a JSCAD geom2 geometry
+   */
+  constructor (geometry) {
+    if (geometry === undefined) {
+      this.geometry = geom2.create()
+    } else {
+      this.geometry = geometry
+    }
   }
-}
 
-Geom2.fromPoints = function (points) {
-  const newgeom = jscad.geometries.geom2.fromPoints(points)
-  return new Geom2(newgeom)
-}
+  /**
+   * @return {Geom2} new geometry
+   */
+  static fromPoints (points) {
+    const newgeom = geom2.create([points])
+    return new Geom2(newgeom)
+  }
 
-Geom2.circle = function (options) {
-  const newgeom = jscad.primitives.circle(options)
-  return new Geom2(newgeom)
-}
+  /**
+   * Create a circle using the given options.
+   * @return {Geom2} new geometry
+   */
+  static circle (options) {
+    const newgeom = circle(options)
+    return new Geom2(newgeom)
+  }
 
-Geom2.ellipse = function (options) {
-  const newgeom = jscad.primitives.ellipse(options)
-  return new Geom2(newgeom)
-}
+  static ellipse (options) {
+    const newgeom = ellipse(options)
+    return new Geom2(newgeom)
+  }
 
-Geom2.polygon = function (options) {
-  const newgeom = jscad.primitives.polygon(options)
-  return new Geom2(newgeom)
-}
+  static polygon (options) {
+    const newgeom = polygon(options)
+    return new Geom2(newgeom)
+  }
 
-Geom2.rectangle = function (options) {
-  const newgeom = jscad.primitives.rectangle(options)
-  return new Geom2(newgeom)
-}
+  static rectangle (options) {
+    const newgeom = rectangle(options)
+    return new Geom2(newgeom)
+  }
 
-Geom2.roundedRectangle = function (options) {
-  const newgeom = jscad.primitives.roundedRectangle(options)
-  return new Geom2(newgeom)
-}
+  static roundedRectangle (options) {
+    const newgeom = roundedRectangle(options)
+    return new Geom2(newgeom)
+  }
 
-Geom2.square = function (options) {
-  const newgeom = jscad.primitives.square(options)
-  return new Geom2(newgeom)
-}
+  static square (options) {
+    const newgeom = square(options)
+    return new Geom2(newgeom)
+  }
 
-Geom2.star = function (options) {
-  const newgeom = jscad.primitives.star(options)
-  return new Geom2(newgeom)
-}
+  static star (options) {
+    const newgeom = star(options)
+    return new Geom2(newgeom)
+  }
 
-Geom2.prototype = {
   //
   // accessors
   //
-  toSides: function () {
-    return jscad.geometries.geom2.toSides(this.geometry)
-  },
+
+  /**
+   * Return the sides
+   * @return {Array} list of sides
+   */
+  toSides () {
+    return geom2.toSides(this.geometry)
+  }
 
   //
   // measurement methods
   //
-  measureArea: function () {
-    return jscad.measurements.measureArea(this.geometry)
-  },
+  /**
+   * @return {Float}
+   */
+  measureArea () {
+    return measureArea(this.geometry)
+  }
 
-  measureBoundingBox: function () {
-    return jscad.measurements.measureBoundingBox(this.geometry)
-  },
+  measureBoundingBox () {
+    return measureBoundingBox(this.geometry)
+  }
 
-  measureBoundingSphere: function () {
-    return jscad.measurements.measureBoundingSphere(this.geometry)
-  },
+  measureBoundingSphere () {
+    return measureBoundingSphere(this.geometry)
+  }
 
-  measureCenter: function () {
-    return jscad.measurements.measureCenter(this.geometry)
-  },
+  measureCenter () {
+    return measureCenter(this.geometry)
+  }
 
-  measureCenterOfMass: function () {
-    return jscad.measurements.measureCenterOfMass(this.geometry)
-  },
+  measureCenterOfMass () {
+    return measureCenterOfMass(this.geometry)
+  }
 
-  measureDimensions: function () {
-    return jscad.measurements.measureDimensions(this.geometry)
-  },
+  measureDimensions () {
+    return measureDimensions(this.geometry)
+  }
 
-  measureEpsilon: function () {
-    return jscad.measurements.measureEpsilon(this.geometry)
-  },
+  measureEpsilon () {
+    return measureEpsilon(this.geometry)
+  }
 
-  measureVolume: function () {
+  measureVolume () {
     return 0
-  },
+  }
 
   //
   // producer methods, i.e. methods that produce new Geom2 instances
   //
-  align: function (options) {
-    const newgeom = jscad.transforms.align(options, this.geometry)
+  center (options) {
+    const newgeom = center(options, this.geometry)
     return new Geom2(newgeom)
-  },
+  }
 
-  center: function (options) {
-    const newgeom = jscad.transforms.center(options, this.geometry)
+  clone () {
+    const newgeom = geom2.clone(this.geometry)
     return new Geom2(newgeom)
-  },
+  }
 
-  clone: function () {
-    const newgeom = jscad.geometries.geom2.clone(this.geometry)
+  colorize (colorspec) {
+    if (!Array.isArray(colorspec)) colorspec = colorNameToRgb(colorspec)
+    const newgeom = colorize(colorspec, this.geometry)
     return new Geom2(newgeom)
-  },
+  }
 
-  colorize: function (colorspec) {
-    if (!Array.isArray(colorspec)) colorspec = jscad.colors.colorNameToRgb(colorspec)
-    const newgeom = jscad.colors.colorize(colorspec, this.geometry)
+  mirror (options) {
+    const newgeom = mirror(options, this.geometry)
     return new Geom2(newgeom)
-  },
+  }
 
-  expand: function (options) {
-    const newgeom = jscad.expansions.expand(options, this.geometry)
+  offset (options) {
+    const newgeom = offset(options, this.geometry)
     return new Geom2(newgeom)
-  },
+  }
 
-  mirror: function (options) {
-    const newgeom = jscad.transforms.mirror(options, this.geometry)
+  rotate (angles) {
+    const newgeom = rotate(angles, this.geometry)
     return new Geom2(newgeom)
-  },
+  }
 
-  offset: function (options) {
-    const newgeom = jscad.expansions.offset(options, this.geometry)
+  scale (factors) {
+    const newgeom = scale(factors, this.geometry)
     return new Geom2(newgeom)
-  },
+  }
 
-  rotate: function (angles) {
-    const newgeom = jscad.transforms.rotate(angles, this.geometry)
+  snap () {
+    const newgeom = snap(this.geometry)
     return new Geom2(newgeom)
-  },
+  }
 
-  scale: function (factors) {
-    const newgeom = jscad.transforms.scale(factors, this.geometry)
-    return new Geom2(newgeom)
-  },
-
-  snap: function () {
-    const newgeom = jscad.modifiers.snap(this.geometry)
-    return new Geom2(newgeom)
-  },
-
-  reverse: function () {
-    const newgeometry = jscad.geometries.geom2.reverse(this.geometry)
+  reverse () {
+    const newgeometry = geom2.reverse(this.geometry)
     return new Geom2(newgeometry)
-  },
+  }
 
-  transform: function (matrix) {
-    const newgeometry = jscad.geometries.geom2.transform(matrix, this.geometry)
+  transform (matrix) {
+    const newgeometry = transform(matrix, this.geometry)
     return new Geom2(newgeometry)
-  },
+  }
 
-  translate: function (offsets) {
-    const newgeom = jscad.transforms.translate(offsets, this.geometry)
+  translate (offsets) {
+    const newgeom = translate(offsets, this.geometry)
     return new Geom2(newgeom)
-  },
+  }
+
+  // TODO
+  // align (...objects) {
+  //   const newgeom = align(options, this.geometry)
+  //   return new Geom2(newgeom)
+  // }
 
   //
   // boolean methods
   //
-  union: function (...objects) {
-    objects = jscad.utils.flatten(objects)
+  union (...objects) {
+    objects = flatten(objects)
     const geometries = [this.geometry]
     objects.forEach((object) => {
       geometries.push(object.geometry)
     })
-    const result = jscad.booleans.union(geometries)
+    const result = union(geometries)
     return new Geom2(result)
-  },
+  }
 
-  intersect: function (...objects) {
-    objects = jscad.utils.flatten(objects)
+  intersect (...objects) {
+    objects = flatten(objects)
     const geometries = [this.geometry]
     objects.forEach((object) => {
       geometries.push(object.geometry)
     })
-    const result = jscad.booleans.intersect(geometries)
+    const result = intersect(geometries)
     return new Geom2(result)
-  },
+  }
 
-  subtract: function (...objects) {
-    objects = jscad.utils.flatten(objects)
+  subtract (...objects) {
+    objects = flatten(objects)
     const geometries = [this.geometry]
     objects.forEach((object) => {
       geometries.push(object.geometry)
     })
-    const result = jscad.booleans.subtract(geometries)
+    const result = subtract(geometries)
     return new Geom2(result)
-  },
+  }
 
   //
   // hull methods
   //
-  hull: function (...objects) {
-    objects = jscad.utils.flatten(objects)
+  hull (...objects) {
+    objects = flatten(objects)
     const geometries = [this.geometry]
     objects.forEach((object) => {
       geometries.push(object.geometry)
     })
-    const result = jscad.hulls.hull(geometries)
+    const result = hull(geometries)
     return new Geom2(result)
-  },
+  }
 
-  hullChain: function (...objects) {
-    objects = jscad.utils.flatten(objects)
+  hullChain (...objects) {
+    objects = flatten(objects)
     const geometries = [this.geometry]
     objects.forEach((object) => {
       geometries.push(object.geometry)
     })
-    const result = jscad.hulls.hullChain(geometries)
+    const result = hullChain(geometries)
     return new Geom2(result)
-  },
+  }
 
   //
   // conversion methods
   //
-  toString: function () {
-    return `Geom2: ${jscad.geometries.geom2.toString(this.geometry)}`
-  },
+  toString () {
+    return `Geom2: ${geom2.toString(this.geometry)}`
+  }
 
-  toOutlines: function () {
-    return jscad.geometries.geom2.toOutlines(this.geometry)
-  },
+  toOutlines () {
+    return geom2.toOutlines(this.geometry)
+  }
 
-  extrudeHelical: function (options) {
-    const newgeometry = jscad.extrusions.extrudeHelical(options, this.geometry)
-    const Geom3 = require('./Geom3')
+  toPoints () {
+    return geom2.toPoints(this.geometry)
+  }
+
+  //
+  // extrusion methods
+  //
+  extrudeHelical (options) {
+    const newgeometry = extrudeHelical(options, this.geometry)
     return new Geom3(newgeometry)
-  },
+  }
 
-  extrudeLinear: function (options) {
-    const newgeometry = jscad.extrusions.extrudeLinear(options, this.geometry)
-    const Geom3 = require('./Geom3')
+  extrudeLinear (options) {
+    const newgeometry = extrudeLinear(options, this.geometry)
     return new Geom3(newgeometry)
-  },
+  }
 
-  extrudeRectangular: function (options) {
-    const newgeom3 = jscad.extrusions.extrudeRectangular(options, this.geometry)
-    const Geom3 = require('./Geom3')
-    return new Geom3(newgeom3)
-  },
-
-  extrudeRotate: function (options) {
-    const newgeometry = jscad.extrusions.extrudeRotate(options, this.geometry)
-    const Geom3 = require('./Geom3')
+  extrudeRotate (options) {
+    const newgeometry = extrudeRotate(options, this.geometry)
     return new Geom3(newgeometry)
-  },
+  }
 
   //
   // helper methods
   //
-  centerX: function () {
+  centerX () {
     return this.center({ axes: [true, false, false] })
-  },
-  centerY: function () {
+  }
+
+  centerY () {
     return this.center({ axes: [false, true, false] })
-  },
-  centerZ: function () {
+  }
+
+  centerZ () {
     return this.center({ axes: [false, false, true] })
-  },
+  }
 
-  mirrorX: function () {
+  mirrorX () {
     return this.mirror({ normal: [1, 0, 0] })
-  },
-  mirrorY: function () {
+  }
+
+  mirrorY () {
     return this.mirror({ normal: [0, 1, 0] })
-  },
-  mirrorZ: function () {
+  }
+
+  mirrorZ () {
     return this.mirror({ normal: [0, 0, 1] })
-  },
+  }
 
-  rotateX: function (angle) {
+  rotateX (angle) {
     return this.rotate([angle, 0, 0])
-  },
-  rotateY: function (angle) {
+  }
+
+  rotateY (angle) {
     return this.rotate([0, angle, 0])
-  },
-  rotateZ: function (angle) {
+  }
+
+  rotateZ (angle) {
     return this.rotate([0, 0, angle])
-  },
+  }
 
-  scaleX: function (factor) {
+  scaleX (factor) {
     return this.scale([factor, 1, 1])
-  },
-  scaleY: function (factor) {
-    return this.scale([1, factor, 1])
-  },
-  scaleZ: function (factor) {
-    return this.scale([1, 1, factor])
-  },
+  }
 
-  translateX: function (offset) {
+  scaleY (factor) {
+    return this.scale([1, factor, 1])
+  }
+
+  scaleZ (factor) {
+    return this.scale([1, 1, factor])
+  }
+
+  translateX (offset) {
     return this.translate([offset, 0, 0])
-  },
-  translateY: function (offset) {
+  }
+
+  translateY (offset) {
     return this.translate([0, offset, 0])
-  },
-  translateZ: function (offset) {
+  }
+
+  translateZ (offset) {
     return this.translate([0, 0, offset])
   }
 }
-
-module.exports = Geom2

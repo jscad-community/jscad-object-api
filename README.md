@@ -1,95 +1,291 @@
-## jscad-object-api
+## Modules
 
-## Object API for JSCAD
+<dl>
+<dt><a href="#module_geom2">geom2</a></dt>
+<dd></dd>
+<dt><a href="#module_geom3">geom3</a></dt>
+<dd></dd>
+<dt><a href="#module_path2">path2</a></dt>
+<dd></dd>
+</dl>
 
-> This project contains a set of objects that wrap the JSCAD geometries.
+<a name="module_geom2"></a>
 
-## Overview
+## geom2
 
-The JSCAD API provides 2D and 3D geometries as set of functions that operate on those geometries.
+* [geom2](#module_geom2)
+    * [.Geom2](#module_geom2.Geom2)
+        * [new exports.Geom2([geometry])](#new_module_geom2.Geom2_new)
+        * _instance_
+            * [.toSides()](#module_geom2.Geom2+toSides) ⇒ <code>Array</code>
+            * [.measureArea()](#module_geom2.Geom2+measureArea) ⇒ <code>Float</code>
+        * _static_
+            * [.fromPoints()](#module_geom2.Geom2.fromPoints) ⇒ <code>Geom2</code>
+            * [.circle()](#module_geom2.Geom2.circle) ⇒ <code>Geom2</code>
 
-This project wraps the JSCAD geometries with an object prototype, providing object specific methods.
-This allows designs to be written using Javascript object nomenclature.
+<a name="module_geom2.Geom2"></a>
 
-- Geom2 : wrapper for JSCAD geom2 with associated methods, as well as static functions to create primitives
-- Geom3 : wrapper for JSCAD geom3 with associated methods, as well as static functions to create primitives
-- Path2 : wrapper for JSCAD path2 with associated methods, as well as static functions to create primitives
+### geom2.Geom2
+Class Geom2
 
-## Table of Contents
+Holds a JSCAD 2D geometry (geom2) that
+represents a 2D geometry consisting of outlines, where each outline is an ordered list of points.
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [License](#license)
+**Kind**: static class of [<code>geom2</code>](#module_geom2)  
 
-## Installation
+* [.Geom2](#module_geom2.Geom2)
+    * [new exports.Geom2([geometry])](#new_module_geom2.Geom2_new)
+    * _instance_
+        * [.toSides()](#module_geom2.Geom2+toSides) ⇒ <code>Array</code>
+        * [.measureArea()](#module_geom2.Geom2+measureArea) ⇒ <code>Float</code>
+    * _static_
+        * [.fromPoints()](#module_geom2.Geom2.fromPoints) ⇒ <code>Geom2</code>
+        * [.circle()](#module_geom2.Geom2.circle) ⇒ <code>Geom2</code>
 
-For Node.js based projects, this package can be installed using NPM.
+<a name="new_module_geom2.Geom2_new"></a>
+
+#### new exports.Geom2([geometry])
+Create a new Geom2 from the given geometry
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [geometry] | <code>geom2</code> | a JSCAD geom2 geometry |
+
+**Example**  
+```js
+import { Geom2 } from "jscad-object-api"
+
+const ashape = Geom2.square()
+const bshape = Geom2.square({size: 10})
+const cshape = ashape.translateY(5).extrudeLinear({height: 250})
 ```
-npm install jscad-object-api
+<a name="module_geom2.Geom2+toSides"></a>
+
+#### geom2.toSides() ⇒ <code>Array</code>
+Return the sides
+
+**Kind**: instance method of [<code>Geom2</code>](#module_geom2.Geom2)  
+**Returns**: <code>Array</code> - list of sides  
+<a name="module_geom2.Geom2+measureArea"></a>
+
+#### geom2.measureArea() ⇒ <code>Float</code>
+**Kind**: instance method of [<code>Geom2</code>](#module_geom2.Geom2)  
+<a name="module_geom2.Geom2.fromPoints"></a>
+
+#### Geom2.fromPoints() ⇒ <code>Geom2</code>
+**Kind**: static method of [<code>Geom2</code>](#module_geom2.Geom2)  
+**Returns**: <code>Geom2</code> - new geometry  
+<a name="module_geom2.Geom2.circle"></a>
+
+#### Geom2.circle() ⇒ <code>Geom2</code>
+Create a circle using the given options.
+
+**Kind**: static method of [<code>Geom2</code>](#module_geom2.Geom2)  
+**Returns**: <code>Geom2</code> - new geometry  
+<a name="module_geom3"></a>
+
+## geom3
+
+* [geom3](#module_geom3)
+    * [.Geom3](#module_geom3.Geom3)
+        * [new exports.Geom3([geometry])](#new_module_geom3.Geom3_new)
+        * _instance_
+            * [.toPolygons()](#module_geom3.Geom3+toPolygons) ⇒ <code>Array</code>
+        * _static_
+            * [.fromVertices()](#module_geom3.Geom3.fromVertices) ⇒ <code>Geom3</code>
+            * [.cube()](#module_geom3.Geom3.cube) ⇒ <code>Geom3</code>
+            * [.cuboid()](#module_geom3.Geom3.cuboid) ⇒ <code>Geom3</code>
+            * [.cylinder()](#module_geom3.Geom3.cylinder) ⇒ <code>Geom3</code>
+            * [.cylinderElliptic()](#module_geom3.Geom3.cylinderElliptic) ⇒ <code>Geom3</code>
+            * [.ellipsoid()](#module_geom3.Geom3.ellipsoid) ⇒ <code>Geom3</code>
+            * [.geodesicSphere()](#module_geom3.Geom3.geodesicSphere) ⇒ <code>Geom3</code>
+            * [.polyhedron()](#module_geom3.Geom3.polyhedron) ⇒ <code>Geom3</code>
+            * [.roundedCuboid()](#module_geom3.Geom3.roundedCuboid) ⇒ <code>Geom3</code>
+            * [.roundedCylinder()](#module_geom3.Geom3.roundedCylinder) ⇒ <code>Geom3</code>
+            * [.sphere()](#module_geom3.Geom3.sphere) ⇒ <code>Geom3</code>
+            * [.torus()](#module_geom3.Geom3.torus) ⇒ <code>Geom3</code>
+
+<a name="module_geom3.Geom3"></a>
+
+### geom3.Geom3
+Class Geom3
+
+Holds a JSCAD 3D geometry consisting of a set of polygons.
+
+**Kind**: static class of [<code>geom3</code>](#module_geom3)  
+
+* [.Geom3](#module_geom3.Geom3)
+    * [new exports.Geom3([geometry])](#new_module_geom3.Geom3_new)
+    * _instance_
+        * [.toPolygons()](#module_geom3.Geom3+toPolygons) ⇒ <code>Array</code>
+    * _static_
+        * [.fromVertices()](#module_geom3.Geom3.fromVertices) ⇒ <code>Geom3</code>
+        * [.cube()](#module_geom3.Geom3.cube) ⇒ <code>Geom3</code>
+        * [.cuboid()](#module_geom3.Geom3.cuboid) ⇒ <code>Geom3</code>
+        * [.cylinder()](#module_geom3.Geom3.cylinder) ⇒ <code>Geom3</code>
+        * [.cylinderElliptic()](#module_geom3.Geom3.cylinderElliptic) ⇒ <code>Geom3</code>
+        * [.ellipsoid()](#module_geom3.Geom3.ellipsoid) ⇒ <code>Geom3</code>
+        * [.geodesicSphere()](#module_geom3.Geom3.geodesicSphere) ⇒ <code>Geom3</code>
+        * [.polyhedron()](#module_geom3.Geom3.polyhedron) ⇒ <code>Geom3</code>
+        * [.roundedCuboid()](#module_geom3.Geom3.roundedCuboid) ⇒ <code>Geom3</code>
+        * [.roundedCylinder()](#module_geom3.Geom3.roundedCylinder) ⇒ <code>Geom3</code>
+        * [.sphere()](#module_geom3.Geom3.sphere) ⇒ <code>Geom3</code>
+        * [.torus()](#module_geom3.Geom3.torus) ⇒ <code>Geom3</code>
+
+<a name="new_module_geom3.Geom3_new"></a>
+
+#### new exports.Geom3([geometry])
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [geometry] | <code>geom3</code> | a provided geometry |
+
+**Example**  
+```js
+import { Geom3 } from "jscad-object-api"
+
+const ashape = Geom3.cylinder()
+const bshape = Geom3.cylinder({height: 2, radius: 10})
+const cshare = bshape.translate([3, 2, 1])
 ```
+<a name="module_geom3.Geom3+toPolygons"></a>
 
-## Usage
+#### geom3.toPolygons() ⇒ <code>Array</code>
+**Kind**: instance method of [<code>Geom3</code>](#module_geom3.Geom3)  
+**Returns**: <code>Array</code> - list of polygons  
+<a name="module_geom3.Geom3.fromVertices"></a>
 
-For Node.js based projects, just add the approprate require statement to access the API functions.
+#### Geom3.fromVertices() ⇒ <code>Geom3</code>
+**Kind**: static method of [<code>Geom3</code>](#module_geom3.Geom3)  
+**Returns**: <code>Geom3</code> - new geometry  
+<a name="module_geom3.Geom3.cube"></a>
+
+#### Geom3.cube() ⇒ <code>Geom3</code>
+**Kind**: static method of [<code>Geom3</code>](#module_geom3.Geom3)  
+**Returns**: <code>Geom3</code> - new geometry  
+<a name="module_geom3.Geom3.cuboid"></a>
+
+#### Geom3.cuboid() ⇒ <code>Geom3</code>
+**Kind**: static method of [<code>Geom3</code>](#module_geom3.Geom3)  
+**Returns**: <code>Geom3</code> - new geometry  
+<a name="module_geom3.Geom3.cylinder"></a>
+
+#### Geom3.cylinder() ⇒ <code>Geom3</code>
+**Kind**: static method of [<code>Geom3</code>](#module_geom3.Geom3)  
+**Returns**: <code>Geom3</code> - new geometry  
+<a name="module_geom3.Geom3.cylinderElliptic"></a>
+
+#### Geom3.cylinderElliptic() ⇒ <code>Geom3</code>
+**Kind**: static method of [<code>Geom3</code>](#module_geom3.Geom3)  
+**Returns**: <code>Geom3</code> - new geometry  
+<a name="module_geom3.Geom3.ellipsoid"></a>
+
+#### Geom3.ellipsoid() ⇒ <code>Geom3</code>
+**Kind**: static method of [<code>Geom3</code>](#module_geom3.Geom3)  
+**Returns**: <code>Geom3</code> - new geometry  
+<a name="module_geom3.Geom3.geodesicSphere"></a>
+
+#### Geom3.geodesicSphere() ⇒ <code>Geom3</code>
+**Kind**: static method of [<code>Geom3</code>](#module_geom3.Geom3)  
+**Returns**: <code>Geom3</code> - new geometry  
+<a name="module_geom3.Geom3.polyhedron"></a>
+
+#### Geom3.polyhedron() ⇒ <code>Geom3</code>
+**Kind**: static method of [<code>Geom3</code>](#module_geom3.Geom3)  
+**Returns**: <code>Geom3</code> - new geometry  
+<a name="module_geom3.Geom3.roundedCuboid"></a>
+
+#### Geom3.roundedCuboid() ⇒ <code>Geom3</code>
+**Kind**: static method of [<code>Geom3</code>](#module_geom3.Geom3)  
+**Returns**: <code>Geom3</code> - new geometry  
+<a name="module_geom3.Geom3.roundedCylinder"></a>
+
+#### Geom3.roundedCylinder() ⇒ <code>Geom3</code>
+**Kind**: static method of [<code>Geom3</code>](#module_geom3.Geom3)  
+**Returns**: <code>Geom3</code> - new geometry  
+<a name="module_geom3.Geom3.sphere"></a>
+
+#### Geom3.sphere() ⇒ <code>Geom3</code>
+**Kind**: static method of [<code>Geom3</code>](#module_geom3.Geom3)  
+**Returns**: <code>Geom3</code> - new geometry  
+<a name="module_geom3.Geom3.torus"></a>
+
+#### Geom3.torus() ⇒ <code>Geom3</code>
+**Kind**: static method of [<code>Geom3</code>](#module_geom3.Geom3)  
+**Returns**: <code>Geom3</code> - new geometry  
+<a name="module_path2"></a>
+
+## path2
+
+* [path2](#module_path2)
+    * [.Path2](#module_path2.Path2)
+        * [new exports.Path2([geometry])](#new_module_path2.Path2_new)
+        * _instance_
+            * [.toPoints()](#module_path2.Path2+toPoints) ⇒ <code>Array</code>
+        * _static_
+            * [.fromPoints()](#module_path2.Path2.fromPoints) ⇒ <code>Path2</code>
+            * [.arc()](#module_path2.Path2.arc) ⇒ <code>Path2</code>
+            * [.line()](#module_path2.Path2.line) ⇒ <code>Path2</code>
+
+<a name="module_path2.Path2"></a>
+
+### path2.Path2
+Class Path2
+
+Holds a JSCAD path2 geometry consisting of an ordered set of points.
+A path can be open or closed, i.e. the start and end are the same.
+
+**Kind**: static class of [<code>path2</code>](#module_path2)  
+
+* [.Path2](#module_path2.Path2)
+    * [new exports.Path2([geometry])](#new_module_path2.Path2_new)
+    * _instance_
+        * [.toPoints()](#module_path2.Path2+toPoints) ⇒ <code>Array</code>
+    * _static_
+        * [.fromPoints()](#module_path2.Path2.fromPoints) ⇒ <code>Path2</code>
+        * [.arc()](#module_path2.Path2.arc) ⇒ <code>Path2</code>
+        * [.line()](#module_path2.Path2.line) ⇒ <code>Path2</code>
+
+<a name="new_module_path2.Path2_new"></a>
+
+#### new exports.Path2([geometry])
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [geometry] | <code>path2</code> | a provided geometry |
+
+**Example**  
+```js
+import { Path2 } from "jscad-object-api"
+
+let path1 = Path2.fromPoints([[10,10], [-10,10], [-10,-10], [10,-10]], true) // closed
+let path2 = Part2.arc({
+  center: [5, 5],
+  radius: 10,
+  startangle: 90,
+  endangle: 180,
+  resolution: 36,
+})
+let path3 = path1.concat(path2)
 ```
-const {Geom2, Geom3, Path2} = require('jscad-object-api')
-```
+<a name="module_path2.Path2+toPoints"></a>
 
-Now the classes can be used within your JSCAD project.
-```
-const {Geom2} = require('jscad-object-api')
+#### path2.toPoints() ⇒ <code>Array</code>
+**Kind**: instance method of [<code>Path2</code>](#module_path2.Path2)  
+**Returns**: <code>Array</code> - list of points  
+<a name="module_path2.Path2.fromPoints"></a>
 
-const main = (params) => {
-  let obj0 = Geom2.rectangle({size: [120, 40]})
+#### Path2.fromPoints() ⇒ <code>Path2</code>
+**Kind**: static method of [<code>Path2</code>](#module_path2.Path2)  
+**Returns**: <code>Path2</code> - new geometry  
+<a name="module_path2.Path2.arc"></a>
 
-  let obj1 = obj0.rotate([0, 0, Math.PI/2]).center({center: [60.0000, -20.0000, 0]})
-  obj1 = obj1.colorize([1, 0, 0, 1])
+#### Path2.arc() ⇒ <code>Path2</code>
+**Kind**: static method of [<code>Path2</code>](#module_path2.Path2)  
+**Returns**: <code>Path2</code> - new geometry  
+<a name="module_path2.Path2.line"></a>
 
-  return [obj0.geometry, obj1.geometry] // RETURN JSCAD GEOMETRIES
-}
-
-module.exports = { main }
-```
-
-Note: JSCAD geometries must be returned from main(), so don't forget.
-
-## JSCAD Projects (Designs)
-
-If not already, create a new folder for the project. (This example is using 'newproject' as the folder name.)
-
-Download this package by clicking on the green 'CODE' button, and select 'Download ZIP'.
-Then unzip the contents.
-
-Copy the dist/jscad-objects.commonjs.js file into the project, i.e. the 'newproject' directory.
-
-Inside the project folder, create a file called index.js, and add the following code.
-```
-const { Geom3 } = require('.jscad-objects.commonjs.js')
-
-const main = (params) => {
-  const segments = 64
-
-  const obj1 = new Geom3.cube({ size: 300 }).subtract( Geom3.sphere({ radius: 200, segments })).colorize([1.0, 0.4, 1.0])
-  const obj2 = new Geom3.sphere({ radius: 130, segments }).intersect( Geom3.cube({ size: 210 })).colorize([1.0, 1.0, 0])
-
-  return [obj1.geometry, obj2.geometry]
-}
-
-module.exports = { main }
-```
-
-The project folder (newproject) should now have the following contents.
-```
-    index.js
-    jscad-objects.commonjs.js
-```
-
-Done!
-
-Now, just drag and drop the project folder onto the JSCAD design website.
-
-
-## License
-
-[The MIT License (MIT)](./LICENSE)
-
+#### Path2.line() ⇒ <code>Path2</code>
+**Kind**: static method of [<code>Path2</code>](#module_path2.Path2)  
+**Returns**: <code>Path2</code> - new geometry  
