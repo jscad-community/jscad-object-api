@@ -15,6 +15,8 @@ This allows designs to be written using Javascript object nomenclature.
 - Geom3 : wrapper for JSCAD geom3 with associated methods, as well as static functions to create primitives
 - Path2 : wrapper for JSCAD path2 with associated methods, as well as static functions to create primitives
 
+See [JSDELIVR](https://cdn.jsdelivr.net/npm/jscad-object-api/) for a list of versions.
+
 ## Table of Contents
 
 - [Installation](#installation)
