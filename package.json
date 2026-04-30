@@ -1,6 +1,6 @@
 {
   "name": "jscad-object-api",
-  "version": "3.0.5",
+  "version": "3.0.6",
   "description": "Object wrappers of the JSCAD geometries",
   "repository": {
     "type": "git",
